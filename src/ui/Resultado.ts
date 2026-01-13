@@ -1,6 +1,6 @@
 // src/ui/Resultado.ts
 import { obterResultado } from '../state/SimuladoClient';
-import type { Prova, ResultadoSimulado } from '../state/SimuladoClient';
+import type { Prova, ResultadoSimulado, DetalheQuestao } from '../state/SimuladoClient';
 
 export type ResultadoCallback = () => void;
 
@@ -17,26 +17,80 @@ export function criarResultado(
     .then(resultado => {
       const pontuacao = resultado.pontuacao.toFixed(1);
       
-      // Constrói todo o conteúdo incluindo o botão
+      // Separa questões corretas e erradas
+      const certas = resultado.detalhes.filter(d => d.acertou);
+      const erradas = resultado.detalhes.filter(d => !d.acertou);
+      
+      // Constrói o conteúdo
       let html = `
-        <h2>Resultados</h2>
-        <p><strong>Vestibular:</strong> ${prova.vestibular} ${prova.ano}</p>
-        <p><strong>Acertos:</strong> ${resultado.acertos} de ${resultado.total_questoes}</p>
-        <p><strong>Pontuação:</strong> ${pontuacao}%</p>
+        <h2>Resultados do Simulado</h2>
+        <div class="resumo-resultado">
+          <div class="cartao acertos">
+            <h3>✅ Acertos</h3>
+            <p class="numero-grande">${resultado.acertos}</p>
+            <p>de ${resultado.total_questoes}</p>
+          </div>
+          <div class="cartao pontuacao">
+            <h3>📊 Pontuação</h3>
+            <p class="numero-grande">${pontuacao}%</p>
+            <p>${resultado.erros} erro(s)</p>
+          </div>
+        </div>
+        
+        <div class="info-prova">
+          <p><strong>Vestibular:</strong> ${prova.vestibular} ${prova.ano}</p>
+          <p><strong>Questões respondidas:</strong> ${resultado.acertos + resultado.erros} de ${resultado.total_questoes}</p>
+        </div>
       `;
 
-      // Mostra detalhes das questões
-      const erradas = resultado.detalhes.filter(d => !d.acertou);
-      if (erradas.length > 0) {
-        html += '<div class="detalhes"><h3>Questões erradas:</h3><ul>';
-        erradas.forEach(d => {
-          html += `<li>Q${d.numero}: sua resposta = ${d.resposta_usuario || '—'}, gabarito = ${d.gabarito}</li>`;
+      // Mostra detalhes das questões corretas
+      if (certas.length > 0) {
+        html += `
+          <div class="detalhes grupo-certas">
+            <h3>✅ Questões Corretas (${certas.length})</h3>
+            <ul>
+        `;
+        certas.forEach(d => {
+          html += `
+            <li class="certa">
+              <strong>Q${d.numero}</strong>: ${d.gabarito} 
+              <span class="mini-badge">✓</span>
+            </li>
+          `;
         });
         html += '</ul></div>';
       }
 
+      // Mostra detalhes das questões erradas
+      if (erradas.length > 0) {
+        html += `
+          <div class="detalhes grupo-erradas">
+            <h3>❌ Questões Erradas (${erradas.length})</h3>
+            <ul>
+        `;
+        erradas.forEach(d => {
+          html += `
+            <li class="errada">
+              <strong>Q${d.numero}</strong>: 
+              sua resposta = <span class="sua-resposta">${d.resposta_usuario || '—'}</span>, 
+              gabarito = <span class="gabarito">${d.gabarito}</span>
+            </li>
+          `;
+        });
+        html += '</ul></div>';
+      }
+
+      // Se não houver detalhes (todas corretas ou todas erradas)
+      if (certas.length === 0 && erradas.length === 0) {
+        html += '<p class="sem-detalhes">Nenhuma questão respondida para exibir detalhes.</p>';
+      }
+
       // Adiciona o botão "Voltar"
-      html += '<button class="btn-voltar">Voltar para o início</button>';
+      html += `
+        <div class="botoes-resultado">
+          <button class="btn-voltar">voltar para o início</button>
+        </div>
+      `;
       
       container.innerHTML = html;
       
@@ -49,12 +103,17 @@ export function criarResultado(
     .catch(e => {
       console.error('Erro ao carregar resultado:', e);
       container.innerHTML = `
-        <p>Erro ao carregar resultado: ${e}</p>
-        <button class="btn-voltar">Voltar para o início</button>
+        <div class="erro-container">
+          <h2>Erro ao carregar resultado</h2>
+          <p>${typeof e === 'string' ? e : 'Ocorreu um erro desconhecido'}</p>
+          <button class="btn-voltar">Tentar novamente</button>
+        </div>
       `;
       const btnVoltar = container.querySelector('.btn-voltar');
       if (btnVoltar) {
-        btnVoltar.addEventListener('click', onVoltar);
+        btnVoltar.addEventListener('click', () => {
+          criarResultado(prova, simuladoId, onVoltar);
+        });
       }
     });
 
