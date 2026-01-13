@@ -15,23 +15,35 @@ impl ProvaService {
     pub fn listar_ids(&self) -> Result<Vec<String>, std::io::Error> {
         let mut ids = Vec::new();
         
-        if self.provas_dir.exists() {
-            // Percorre cada pasta vestibular (enem, fuvest, etc.)
-            for entry in fs::read_dir(&self.provas_dir)? {
-                let entry = entry?;
-                if entry.file_type()?.is_dir() {
-                    let vestibular = entry.file_name().to_string_lossy().into_owned();
-                    let vestibular_path = entry.path();
-                    
-                    // Dentro de cada pasta, procura arquivos JSON
-                    for prova_entry in fs::read_dir(vestibular_path)? {
+        if !self.provas_dir.exists() {
+            println!("⚠️ Pasta de provas não existe: {:?}", self.provas_dir);
+            return Ok(ids);
+        }
+
+        println!("🔍 Listando provas em: {:?}", self.provas_dir);
+        
+        for entry in fs::read_dir(&self.provas_dir)? {
+            let entry = entry?;
+            let path = entry.path();
+            
+            if path.is_dir() {
+                let vestibular = path.file_name()
+                    .and_then(|s| s.to_str())
+                    .map(|s| s.to_string())
+                    .unwrap_or_else(|| "unknown".to_string());
+                
+                println!("📁 Encontrado vestibular: {}", vestibular);
+                
+                if let Ok(vestibular_dir) = fs::read_dir(&path) {
+                    for prova_entry in vestibular_dir {
                         let prova_entry = prova_entry?;
-                        let path = prova_entry.path();
+                        let prova_path = prova_entry.path();
                         
-                        if path.is_file() && path.extension().map_or(false, |ext| ext == "json") {
-                            if let Some(nome_arquivo) = path.file_stem().and_then(|s| s.to_str()) {
-                                // Cria ID no formato "vestibular/nome_arquivo"
-                                ids.push(format!("{}/{}", vestibular, nome_arquivo));
+                        if prova_path.is_file() && prova_path.extension().map_or(false, |ext| ext == "json") {
+                            if let Some(nome_arquivo) = prova_path.file_stem().and_then(|s| s.to_str()) {
+                                let id = format!("{}/{}", vestibular, nome_arquivo);
+                                println!("📄 Encontrada prova: {}", id);
+                                ids.push(id);
                             }
                         }
                     }
@@ -39,6 +51,7 @@ impl ProvaService {
             }
         }
         
+        println!("✅ Provas listadas: {:?}", ids);
         Ok(ids)
     }
 
@@ -51,19 +64,41 @@ impl ProvaService {
         println!("📂 Tentando carregar prova de: {:?}", prova_path); // Debug
         
         if !prova_path.exists() {
+            println!("❌ Arquivo não encontrado: {:?}", prova_path);
             return Err(ProvaServiceError::NaoEncontrada(prova_id.to_string()));
         }
 
         let conteudo = fs::read_to_string(&prova_path)
-            .map_err(|e| ProvaServiceError::LeituraFalhou(prova_path.clone(), e))?;
+            .map_err(|e| {
+                println!("❌ Erro ao ler arquivo: {}", e);
+                ProvaServiceError::LeituraFalhou(prova_path.clone(), e)
+            })?;
 
         let prova: Prova = serde_json::from_str(&conteudo)
-            .map_err(|e| ProvaServiceError::ParseJson(prova_path, e))?;
+            .map_err(|e| {
+                println!("❌ Erro ao parsear JSON: {}", e);
+                ProvaServiceError::ParseJson(prova_path, e)
+            })?;
 
         prova.validate_schema()
             .map_err(ProvaServiceError::Validacao)?;
 
+        println!("✅ Prova carregada com sucesso: {}", prova_id);
         Ok(prova)
+    }
+
+    pub fn questao_existe(&self, prova_id: &str, questao_id: &str) -> Result<bool, String> {
+        match self.carregar(prova_id) {
+            Ok(prova) => {
+                let existe = prova.questoes.iter().any(|q| q.id == questao_id);
+                println!("🔍 Questão {} {} na prova {}", 
+                    questao_id, 
+                    if existe { "ENCONTRADA" } else { "NÃO ENCONTRADA" },
+                    prova_id);
+                Ok(existe)
+            },
+            Err(e) => Err(format!("Erro ao carregar prova {}: {}", prova_id, e))
+        }
     }
 }
 

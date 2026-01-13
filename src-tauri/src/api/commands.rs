@@ -1,5 +1,6 @@
 use tauri::State;
 use std::sync::Arc;
+use anyhow::Context;
 use crate::domain::prova::Prova;
 use crate::domain::estado::EstadoSimuladoCompleto;
 use crate::services::prova_service::ProvaService;
@@ -49,10 +50,12 @@ pub async fn atualizar_tempo_simulado(
     service: State<'_, SimuladoServiceWrapper>,
     simulado_id: i64,
 ) -> Result<(), String> {
+     println!("🔧 Atualizando tempo para simulado {}", simulado_id);
     service.0
         .atualizar_tempo(simulado_id)
         .map_err(|e| format!("Erro ao atualizar tempo: {}", e))
 }
+
 #[tauri::command]
 pub async fn pausar_simulado(
     service: State<'_, SimuladoServiceWrapper>,
@@ -107,6 +110,7 @@ pub async fn avancar_questao(
         .avancar_questao(simulado_id)
         .map_err(|e| format!("Erro ao avançar questão: {}", e))
 }
+
 #[tauri::command]
 pub async fn voltar_questao(
     service: State<'_, SimuladoServiceWrapper>,
@@ -139,7 +143,7 @@ pub async fn obter_resultado(
         .map_err(|e| format!("Erro ao calcular resultado: {}", e))
 }
 
-// OPCIONAIS Listar simulados anteriores
+// Listar simulados anteriores
 #[tauri::command]
 pub async fn listar_simulados(
     service: State<'_, SimuladoServiceWrapper>,
@@ -149,7 +153,7 @@ pub async fn listar_simulados(
         .map_err(|e| format!("Erro ao listar simulados: {}", e))
 }
 
-// OPCIONAIS Excluir simulado
+// Excluir simulado
 #[tauri::command]
 pub async fn excluir_simulado(
     service: State<'_, SimuladoServiceWrapper>,
@@ -158,4 +162,22 @@ pub async fn excluir_simulado(
     service.0
         .excluir(simulado_id)
         .map_err(|e| format!("Erro ao excluir simulado: {}", e))
+}
+
+// Comando para verificar se questão existe
+#[tauri::command]
+pub async fn questao_existe(
+    service: State<'_, SimuladoServiceWrapper>,
+    prova_id: String,
+    questao_id: String,
+) -> Result<bool, String> {
+    let prova_service = crate::services::prova_service::ProvaService::new(
+        std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .parent().unwrap()
+            .join("provas")
+    );
+    
+    prova_service
+        .questao_existe(&prova_id, &questao_id)
+        .map_err(|e| format!("Erro ao verificar questão: {}", e))
 }
