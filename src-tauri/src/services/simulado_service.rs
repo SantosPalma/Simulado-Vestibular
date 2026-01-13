@@ -17,7 +17,7 @@ pub struct SimuladoResumo {
 #[derive(serde::Serialize)]
 pub struct DetalheQuestao {
     pub questao_id: String,
-    pub numero: usize,
+    pub numero: u32,
     pub resposta_usuario: Option<String>,
     pub gabarito: String,
     pub acertou: bool,
@@ -187,20 +187,15 @@ pub fn avancar_questao(&self, simulado_id: i64) -> Result<()> {
         Ok(())
     }
 
-    // Obter resultado final
-// ... código existente ...
+ 
 
-// Obter resultado final
 pub fn calcular_resultado(&self, simulado_id: i64) -> Result<ResultadoSimulado> {
     let simulado = self.repo.buscar_por_id(simulado_id)?
         .ok_or_else(|| anyhow!("Simulado {} não encontrado", simulado_id))?;
     
     let estado = simulado.estado()?;
-    
-    // Carrega a prova usando o serviço correto
     let prova_service = crate::services::prova_service::ProvaService::new(
-        // Você precisa passar o caminho correto das provas!
-        // Mas como não temos acesso aqui, vamos carregar diretamente
+       
         std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
             .parent().unwrap()
             .join("provas")
@@ -222,7 +217,7 @@ pub fn calcular_resultado(&self, simulado_id: i64) -> Result<ResultadoSimulado> 
         
         detalhes.push(DetalheQuestao {
             questao_id: questao.id.clone(),
-            numero: questao.numero as usize,
+            numero: questao.numero,
             resposta_usuario,
             gabarito: questao.resposta_correta.clone(),
             acertou,
