@@ -3,12 +3,14 @@
   "productName": "vestibular-tauri",
   "version": "0.1.0",
   "identifier": "com.tiago.vestibular-tauri",
+
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "npm run build",
     "frontendDist": "../dist"
   },
+
   "app": {
     "withGlobalTauri": true,
     "windows": [
@@ -22,6 +24,7 @@
       "csp": null
     }
   },
+
   "bundle": {
     "active": true,
     "targets": "all",

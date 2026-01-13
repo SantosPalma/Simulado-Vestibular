@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "content_version": "2022-1.0",
+  "vestibular": "ENEM",
+  "ano": 2022,
+  "dia": 1,
+  "duracao_minutos": 10,
+  "total_questoes": 2,
+  "questoes": [
+    {
+      "id": "Q01",
+      "area_id": "linguagens",
+      "numero": 1,
+      "enunciado": "Qual é a capital da França?",
+      "imagens": [],
+      "alternativas": [
+        { "id": "A", "texto": "Lisboa" },
+        { "id": "B", "texto": "Madri" },
+        { "id": "C", "texto": "Paris" },
+        { "id": "D", "texto": "Roma" },
+        { "id": "E", "texto": "Berlim" }
+      ],
+      "resposta_correta": "C"
+    },
+    {
+      "id": "Q02",
+      "area_id": "humanas",
+      "numero": 2,
+      "enunciado": "Quem escreveu 'Dom Casmurro'?",
+      "imagens": [],
+      "alternativas": [
+        { "id": "A", "texto": "Machado de Assis" },
+        { "id": "B", "texto": "José de Alencar" },
+        { "id": "C", "texto": "Euclides da Cunha" },
+        { "id": "D", "texto": "Graciliano Ramos" },
+        { "id": "E", "texto": "Clarice Lispector" }
+      ],
+      "resposta_correta": "A"
+    }
+  ]
+}

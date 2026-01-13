@@ -1,0 +1,145 @@
+/* Cores principais */
+:root {
+  --azul-jeans: #2a5b87;
+  --azul-marinho: #1a3d5c;
+  --cinza-claro: #f5f7fa;
+  --cinza-texto: #333333;
+  --branco: #ffffff;
+  --borda: #d1d5db;
+}
+
+/* Reset e base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--branco);
+  color: var(--cinza-texto);
+  line-height: 1.6;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* Tipografia */
+h1, h2, h3 {
+  color: var(--azul-marinho);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Botões */
+button {
+  background-color: var(--azul-jeans);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--azul-marinho);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Layout dos componentes */
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.seletor-prova ul {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.seletor-prova button {
+  width: 100%;
+  text-align: left;
+  padding: 14px;
+  background-color: var(--cinza-claro);
+  color: var(--azul-marinho);
+  font-weight: 500;
+}
+
+.cabecalho-simulado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--borda);
+  margin-bottom: 24px;
+}
+
+.alternativa {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  background: var(--branco);
+  transition: border-color 0.2s;
+}
+
+.alternativa:hover {
+  border-color: var(--azul-jeans);
+}
+
+.alternativa.selecionada {
+  background-color: #e6f0ff;
+  border-color: var(--azul-jeans);
+  font-weight: 600;
+}
+
+.navegacao {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.imagem-questao {
+  max-width: 100%;
+  height: auto;
+  margin: 16px 0;
+  border-radius: 4px;
+}
+
+.erro {
+  color: #c53030;
+  background: #fef5f5;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 16px 0;
+}

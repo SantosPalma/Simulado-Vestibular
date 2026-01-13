@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Banco de dados local (estado do usuário)
+/data/
+
+# Build artifacts
+/target/
+/dist/
+/node_modules/
