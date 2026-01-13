@@ -45,6 +45,15 @@ pub async fn iniciar_simulado(
 }
 
 #[tauri::command]
+pub async fn atualizar_tempo_simulado(
+    service: State<'_, SimuladoServiceWrapper>,
+    simulado_id: i64,
+) -> Result<(), String> {
+    service.0
+        .atualizar_tempo(simulado_id)
+        .map_err(|e| format!("Erro ao atualizar tempo: {}", e))
+}
+#[tauri::command]
 pub async fn pausar_simulado(
     service: State<'_, SimuladoServiceWrapper>,
     simulado_id: i64,

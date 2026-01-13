@@ -6,7 +6,8 @@ import {
   voltarQuestao,
   pausarSimulado,
   retomarSimulado,
-  finalizarSimulado
+  finalizarSimulado,
+  atualizarTempoSimulado // ← Certifique-se de que isso existe em SimuladoClient.ts
 } from '../state/SimuladoClient';
 
 import type {
@@ -15,9 +16,7 @@ import type {
   EstadoSimuladoCompleto
 } from '../state/SimuladoClient';
 
-// Callback simplificado - só precisa da prova
 export type SimuladoCallback = (prova: Prova) => void;
-// ... imports ...
 
 export function criarSimulado(
   simuladoId: number,
@@ -71,10 +70,12 @@ export function criarSimulado(
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const atualizarCabecalho = (estado: EstadoSimuladoCompleto) => {
+  const atualizarCabecalho = () => {
+    if (!estadoAtual) return;
+    
     cabecalho.innerHTML = `
       <span>${prova.vestibular} • ${prova.ano}</span>
-      <span>Tempo: ${formatarTempo(estado.tempo.decorrido_segundos)}</span>
+      <span>Tempo: ${formatarTempo(estadoAtual.tempo.decorrido_segundos)}</span>
     `;
   };
 
@@ -96,6 +97,7 @@ export function criarSimulado(
     /* Imagens */
     questao.imagens.forEach(img => {
       const imgEl = document.createElement('img');
+      // Correção: o caminho deve ser relativo à pasta da prova
       imgEl.src = `../provas/${provaId}/assets/${img}`;
       imgEl.alt = `Imagem da questão ${questao.numero}`;
       imgEl.className = 'imagem-questao';
@@ -114,14 +116,24 @@ export function criarSimulado(
         btn.classList.add('selecionada');
       }
 
-      btn.innerHTML = `<strong>${alt.id})</strong> ${alt.texto}`;
+      const idSpan = document.createElement('strong');
+      idSpan.textContent = `${alt.id}) `;
+      idSpan.style.marginRight = '8px';
+      
+      const textSpan = document.createElement('span');
+      textSpan.textContent = alt.texto;
+      
+      btn.appendChild(idSpan);
+      btn.appendChild(textSpan);
 
       btn.onclick = async () => {
-        // Registra resposta no backend
-        await responderQuestao(simuladoId, questaoId, alt.id);
-        
-        // Carrega estado atualizado
-        await carregarEstado();
+        try {
+          await responderQuestao(simuladoId, questaoId, alt.id);
+          await carregarEstado();
+        } catch (e) {
+          console.error('Erro ao registrar resposta:', e);
+          alert('Erro ao registrar resposta: ' + (typeof e === 'string' ? e : 'Erro desconhecido'));
+        }
       };
 
       alternativas.appendChild(btn);
@@ -130,102 +142,162 @@ export function criarSimulado(
     questaoEl.appendChild(alternativas);
   };
 
-  // Função para verificar se pode avançar
   const podeAvancar = (estado: EstadoSimuladoCompleto): boolean => {
     const questaoId = estado.progresso.questao_atual;
     const indexAtual = prova.questoes.findIndex(q => q.id === questaoId);
-    const totalQuestoes = prova.questoes.length;
-    
-    // Pode avançar se NÃO for a última questão
-    return indexAtual < totalQuestoes - 1;
+    return indexAtual < prova.questoes.length - 1;
   };
 
-  // Função para verificar se a questão atual foi respondida
   const questaoRespondida = (estado: EstadoSimuladoCompleto): boolean => {
     const questaoId = estado.progresso.questao_atual;
-    return estado.respostas[questaoId] !== undefined && estado.respostas[questaoId] !== null;
+    return estado.respostas[questaoId] !== undefined && 
+           estado.respostas[questaoId] !== null && 
+           estado.respostas[questaoId] !== '';
+  };
+
+  // Timer que atualiza o tempo a cada segundo
+  const iniciarTimer = () => {
+    if (intervalId) return;
+    
+    intervalId = window.setInterval(async () => {
+      try {
+        if (!estadoAtual) return;
+        
+        // Atualiza o tempo no backend
+        await atualizarTempoSimulado(simuladoId);
+        
+        // Busca o estado atualizado
+        const estado = await obterEstadoSimulado(simuladoId);
+        estadoAtual = estado;
+        atualizarCabecalho();
+        
+        // ✅ CORREÇÃO: Usa o limite do estado, não da prova
+        const limiteSegundos = (estado.tempo.limite_minutos || 0) * 60;
+        if (limiteSegundos > 0 && estado.tempo.decorrido_segundos >= limiteSegundos) {
+          finalizar();
+        }
+      } catch (e) {
+        console.error('Erro ao atualizar tempo:', e);
+      }
+    }, 1000);
+  };
+
+  const pararTimer = () => {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  };
+
+  const finalizar = async () => {
+    pararTimer();
+    try {
+      await finalizarSimulado(simuladoId);
+      onFinalizar(prova);
+    } catch (e) {
+      console.error('Erro ao finalizar simulado:', e);
+      alert('Erro ao finalizar: ' + (typeof e === 'string' ? e : 'Erro desconhecido'));
+    }
   };
 
   const atualizarNavegacao = (estado: EstadoSimuladoCompleto) => {
     const questaoId = estado.progresso.questao_atual;
     const indexAtual = prova.questoes.findIndex(q => q.id === questaoId);
-    const totalQuestoes = prova.questoes.length;
 
-    // Botão Anterior
     btnAnterior.disabled = indexAtual <= 0;
+    btnAvancar.disabled = !(podeAvancar(estado) && questaoRespondida(estado));
 
-    // Botão Próxima - habilita se:
-    // 1. Não é a última questão E
-    // 2. A questão atual foi respondida
-    const podeAvancarAgora = podeAvancar(estado) && questaoRespondida(estado);
-    btnAvancar.disabled = !podeAvancarAgora;
-
-    // Eventos de navegação
     btnAnterior.onclick = async () => {
-      await voltarQuestao(simuladoId);
-      await carregarEstado();
+      try {
+        await voltarQuestao(simuladoId);
+        await carregarEstado();
+      } catch (e) {
+        console.error('Erro ao voltar questão:', e);
+        alert('Erro ao voltar: ' + (typeof e === 'string' ? e : 'Erro desconhecido'));
+      }
     };
 
     btnAvancar.onclick = async () => {
-      await avancarQuestao(simuladoId);
-      await carregarEstado();
+      try {
+        await avancarQuestao(simuladoId);
+        await carregarEstado();
+      } catch (e) {
+        console.error('Erro ao avançar questão:', e);
+        alert('Erro ao avançar: ' + (typeof e === 'string' ? e : 'Erro desconhecido'));
+      }
     };
 
-    // Lógica de pausar/retomar
     if (estado.estado === 'PAUSADO') {
       btnPausar.textContent = 'Retomar';
+      pararTimer();
     } else {
       btnPausar.textContent = 'Pausar';
+      iniciarTimer();
     }
     
     btnPausar.onclick = async () => {
-      if (estado.estado === 'PAUSADO') {
-        await retomarSimulado(simuladoId);
-      } else {
-        await pausarSimulado(simuladoId);
+      try {
+        if (estado.estado === 'PAUSADO') {
+          await retomarSimulado(simuladoId);
+        } else {
+          await pausarSimulado(simuladoId);
+        }
+        await carregarEstado();
+      } catch (e) {
+        console.error('Erro ao pausar/retomar:', e);
+        alert('Erro na operação: ' + (typeof e === 'string' ? e : 'Erro desconhecido'));
       }
-      await carregarEstado();
     };
-  };
-
-  const finalizar = async () => {
-    await finalizarSimulado(simuladoId);
-    onFinalizar(prova);
   };
 
   btnFinalizar.onclick = finalizar;
 
-  /* ============================
-     CARREGAMENTO DE ESTADO
-     ============================ */
-   const carregarEstado = async () => {
-    try {
-      const estado = await obterEstadoSimulado(simuladoId);
-      console.log('📊 Estado atual:', {
-        questaoAtual: estado.progresso.questao_atual,
-        respostas: estado.respostas,
-        podeAvancar: podeAvancar(estado),
-        questaoRespondida: questaoRespondida(estado)
-      });
-      
-      estadoAtual = estado;
-      atualizarCabecalho(estado);
-      renderizarQuestao(estado);
-      atualizarNavegacao(estado);
-
-      if (intervalId) clearInterval(intervalId);
-      if (estado.estado === 'EM_ANDAMENTO') {
-        intervalId = window.setInterval(() => {
-          estadoAtual!.tempo.decorrido_segundos += 1;
-          atualizarCabecalho(estadoAtual!);
-        }, 1000);
-      }
-    } catch (e) {
-      console.error('❌ Erro ao carregar estado:', e);
-      alert('Erro ao carregar simulado: ' + (typeof e === 'string' ? e : 'Erro desconhecido'));
+  const carregarEstado = async () => {
+  try {
+    // ✅ PRIMEIRO: Atualiza o tempo no backend
+    await atualizarTempoSimulado(simuladoId);
+    
+    // ✅ DEPOIS: Carrega o estado atualizado
+    const estado = await obterEstadoSimulado(simuladoId);
+    estadoAtual = estado;
+    
+    console.log('📊 Estado carregado:', {
+      tempo: estado.tempo.decorrido_segundos,
+      inicio: estado.tempo.inicio,
+      estado: estado.estado
+    });
+    
+    // Inicia ou para o timer baseado no estado
+    if (estado.estado === 'EM_ANDAMENTO') {
+      iniciarTimer();
+    } else {
+      pararTimer();
     }
-  };
 
+    atualizarCabecalho();
+    renderizarQuestao(estado);
+    atualizarNavegacao(estado);
+  } catch (e) {
+    console.error('❌ Erro ao carregar estado:', e);
+    alert('Erro ao carregar simulado: ' + (typeof e === 'string' ? e : 'Erro desconhecido'));
+    
+    // Tenta novamente após 2 segundos
+    setTimeout(carregarEstado, 2000);
+  }
+};
+
+  // ✅ Limpeza quando o componente for removido
+  const observer = new MutationObserver(() => {
+    if (!container.isConnected) {
+      pararTimer();
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Carrega o estado inicial
   carregarEstado();
+  
   return container;
 }

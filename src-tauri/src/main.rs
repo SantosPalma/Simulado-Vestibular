@@ -75,6 +75,8 @@ fn main() {
     api::commands::voltar_questao,
     api::commands::finalizar_simulado,
     api::commands::obter_resultado,
+    api::commands::atualizar_tempo_simulado,
+
     
     // Simulados - opcionais
     api::commands::listar_simulados,

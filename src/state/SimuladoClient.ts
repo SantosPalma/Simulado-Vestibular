@@ -125,3 +125,7 @@ export async function finalizarSimulado(simuladoId: number): Promise<void> {
 export async function obterResultado(simuladoId: number): Promise<ResultadoSimulado> {
   return await invoke('obter_resultado', { simuladoId });
 }
+
+export async function atualizarTempoSimulado(simuladoId: number): Promise<void> {
+  return await invoke('atualizar_tempo_simulado', { simuladoId });
+}
