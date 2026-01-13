@@ -100,35 +100,60 @@ textarea {
   margin-bottom: 24px;
 }
 
+/* Alternativas da questão */
+/* Alternativas da questão - CORRIGIDO */
 .alternativa {
   display: block;
   width: 100%;
   text-align: left;
-  padding: 12px;
+  padding: 12px 16px;
   margin: 8px 0;
   border: 1px solid var(--borda);
   border-radius: 6px;
   background: var(--branco);
-  transition: border-color 0.2s;
+  transition: all 0.2s;
+  cursor: pointer;
+  min-height: 44px;
+  white-space: normal;
+  word-wrap: break-word;
+  
+  /* Correção: texto escuro no fundo branco */
+  color: var(--cinza-texto);
+  font-weight: normal;
 }
 
-.alternativa:hover {
-  border-color: var(--azul-jeans);
-}
-
-.alternativa.selecionada {
-  background-color: #e6f0ff;
-  border-color: var(--azul-jeans);
+.alternativa strong {
+  color: var(--azul-marinho);
+  margin-right: 8px;
   font-weight: 600;
 }
 
+/* Hover */
+.alternativa:hover {
+  border-color: var(--azul-jeans);
+  background-color: #f8fafc;
+}
+
+/* Selecionada */
+.alternativa.selecionada {
+  background-color: #e6f0ff;
+  border-color: var(--azul-jeans);
+  font-weight: 500;
+}
+
+.alternativa.selecionada strong {
+  color: var(--azul-jeans);
+}
+/* Navegação do simulado */
 .navegacao {
   margin-top: 32px;
   display: flex;
   justify-content: center;
-  gap: 12px;
+  gap: 16px; /* aumentado */
+  flex-wrap: wrap;
 }
 
+/* Imagens das questões */
 .imagem-questao {
   max-width: 100%;
   height: auto;
@@ -136,10 +161,18 @@ textarea {
   border-radius: 4px;
 }
 
+/* Erros */
 .erro {
   color: #c53030;
   background: #fef5f5;
   padding: 12px;
   border-radius: 6px;
   margin: 16px 0;
+}
+
+/* Botão de voltar no resultado */
+.btn-voltar {
+  margin-top: 24px;
+  padding: 12px 24px;
+  font-size: 1rem;
 }

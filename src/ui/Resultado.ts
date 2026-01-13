@@ -6,7 +6,7 @@ export type ResultadoCallback = () => void;
 
 export function criarResultado(
   prova: Prova,
-  simuladoId: number, // ← recebe o ID do simulado
+  simuladoId: number,
   onVoltar: ResultadoCallback
 ): HTMLElement {
   const container = document.createElement('div');
@@ -17,7 +17,8 @@ export function criarResultado(
     .then(resultado => {
       const pontuacao = resultado.pontuacao.toFixed(1);
       
-      container.innerHTML = `
+      // Constrói todo o conteúdo incluindo o botão
+      let html = `
         <h2>Resultados</h2>
         <p><strong>Vestibular:</strong> ${prova.vestibular} ${prova.ano}</p>
         <p><strong>Acertos:</strong> ${resultado.acertos} de ${resultado.total_questoes}</p>
@@ -27,28 +28,35 @@ export function criarResultado(
       // Mostra detalhes das questões
       const erradas = resultado.detalhes.filter(d => !d.acertou);
       if (erradas.length > 0) {
-        const detalhes = document.createElement('div');
-        detalhes.className = 'detalhes';
-        detalhes.innerHTML = '<h3>Questões erradas:</h3><ul></ul>';
-        const ul = detalhes.querySelector('ul')!;
-        
+        html += '<div class="detalhes"><h3>Questões erradas:</h3><ul>';
         erradas.forEach(d => {
-          const li = document.createElement('li');
-          li.textContent = `Q${d.numero}: sua resposta = ${d.resposta_usuario || '—'}, gabarito = ${d.gabarito}`;
-          ul.appendChild(li);
+          html += `<li>Q${d.numero}: sua resposta = ${d.resposta_usuario || '—'}, gabarito = ${d.gabarito}</li>`;
         });
-        container.appendChild(detalhes);
+        html += '</ul></div>';
+      }
+
+      // Adiciona o botão "Voltar"
+      html += '<button class="btn-voltar">Voltar para o início</button>';
+      
+      container.innerHTML = html;
+      
+      // Adiciona o evento de clique ao botão
+      const btnVoltar = container.querySelector('.btn-voltar');
+      if (btnVoltar) {
+        btnVoltar.addEventListener('click', onVoltar);
       }
     })
     .catch(e => {
       console.error('Erro ao carregar resultado:', e);
-      container.innerHTML = `<p>Erro ao carregar resultado: ${e}</p>`;
+      container.innerHTML = `
+        <p>Erro ao carregar resultado: ${e}</p>
+        <button class="btn-voltar">Voltar para o início</button>
+      `;
+      const btnVoltar = container.querySelector('.btn-voltar');
+      if (btnVoltar) {
+        btnVoltar.addEventListener('click', onVoltar);
+      }
     });
-
-  const btnVoltar = document.createElement('button');
-  btnVoltar.textContent = 'Voltar para o início';
-  btnVoltar.addEventListener('click', onVoltar);
-  container.appendChild(btnVoltar);
 
   return container;
 }
