@@ -1,15 +1,3 @@
-# Tauri + Vanilla TS
-
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Typescript.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
-
-Claro! Aqui está uma versão aprimorada do seu `README.md`, com foco em clareza, propósito social, tecnologias utilizadas e uma licença adequada ao seu objetivo:
-
----
-
 # 📘 Simulador de Provas Offline
 
 ![Tauri + TypeScript](https://img.shields.io/badge/Tauri-1.0+-5A189A?logo=rust&logoColor=white)
