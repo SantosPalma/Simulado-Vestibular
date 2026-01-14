@@ -39,21 +39,25 @@ export function criarSimulado(
   const navegacao = document.createElement('footer');
   navegacao.className = 'simulado-navegacao';
 
-  const btnAnterior = document.createElement('button');
-  btnAnterior.textContent = 'Anterior';
-  btnAnterior.disabled = true;
+ const btnAnterior = document.createElement('button');
+btnAnterior.className = 'btn-anterior'; // ← classe específica
+btnAnterior.textContent = 'Anterior';
+btnAnterior.disabled = true;
 
-  const btnAvancar = document.createElement('button');
-  btnAvancar.textContent = 'Próxima';
+const btnAvancar = document.createElement('button');
+btnAvancar.className = 'btn-proxima'; // ← classe específica
+btnAvancar.textContent = 'Próxima';
 
-  const btnPausar = document.createElement('button');
-  btnPausar.textContent = 'Pausar';
+const btnPausar = document.createElement('button');
+btnPausar.className = 'btn-pausar'; // ← classe específica
+btnPausar.textContent = 'Pausar';
 
-  const btnFinalizar = document.createElement('button');
-  btnFinalizar.textContent = 'Finalizar';
+const btnFinalizar = document.createElement('button');
+btnFinalizar.className = 'btn-finalizar'; // ← classe específica
+btnFinalizar.textContent = 'Finalizar';
 
-  navegacao.append(btnAnterior, btnAvancar, btnPausar, btnFinalizar);
-  container.append(cabecalho, questaoEl, navegacao);
+navegacao.append(btnAnterior, btnAvancar, btnPausar, btnFinalizar);
+container.append(cabecalho, questaoEl, navegacao);
 
   /* ============================
      ESTADO LOCAL
@@ -153,9 +157,7 @@ export function criarSimulado(
           imgEl.alt = `⚠️ Imagem ${index + 1} não carregada`;
           imgEl.textContent = `Imagem não disponível: ${img}`;
         };
-        
-        // Log de sucesso
-        imgEl.onload = () => {
+                imgEl.onload = () => {
           console.log('✅ Imagem carregada com sucesso:', imgEl.src);
         };
         
@@ -332,7 +334,7 @@ export function criarSimulado(
       }
 
       atualizarCabecalho();
-      renderizarQuestao(estado); // ← Esta linha deve gerar logs
+      renderizarQuestao(estado); // Esta linha deve gerar logs
       atualizarNavegacao(estado);
     } catch (e) {
       console.error('❌ Erro ao carregar estado:', e);

@@ -1,4 +1,5 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
+// Copyright (C) 2026 Tiago. Licenciado sob AGPL-3.0.
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod domain;

@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Tiago. Licenciado sob AGPL-3.0.
 import { renderizarHome } from './ui/Home';
 
 document.addEventListener('DOMContentLoaded', () => {

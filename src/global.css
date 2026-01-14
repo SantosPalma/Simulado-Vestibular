@@ -48,14 +48,7 @@ button {
   transition: background-color 0.2s;
 }
 
-button:hover:not(:disabled) {
-  background-color: var(--azul-marinho);
-}
 
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
 
 /* Inputs */
 input[type="text"],
@@ -144,14 +137,119 @@ textarea {
   color: var(--azul-jeans);
 }
 /* Navegação do simulado */
-.navegacao {
+/* ========== Botões de Navegação do Simulado ========== */
+.simulado-navegacao {
   margin-top: 32px;
   display: flex;
   justify-content: center;
-  gap: 16px; /* aumentado */
+  gap: 12px;
   flex-wrap: wrap;
+  padding: 20px 0;
 }
 
+/* Estilos base para todos os botões de navegação */
+.simulado-navegacao button {
+  min-width: 120px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão Anterior - Secundário */
+.simulado-navegacao .btn-anterior {
+  background-color: var(--cinza-claro);
+  color: var(--azul-marinho);
+  border: 2px solid var(--borda);
+}
+
+.simulado-navegacao .btn-anterior:hover:not(:disabled) {
+  background-color: #e9ecef;
+  border-color: var(--azul-jeans);
+  transform: translateY(-2px);
+}
+
+/* Botão Próxima - Primário */
+.simulado-navegacao .btn-proxima {
+  background-color: var(--azul-jeans);
+  color: white;
+  border: 2px solid var(--azul-jeans);
+}
+
+.simulado-navegacao .btn-proxima:hover:not(:disabled) {
+  background-color: var(--azul-marinho);
+  border-color: var(--azul-marinho);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(26, 61, 92, 0.3);
+}
+
+/* Botão Pausar/Retomar - Aviso */
+.simulado-navegacao .btn-pausar {
+  background-color: #ffc107;
+  color: #212529;
+  border: 2px solid #ffc107;
+  font-weight: 600;
+}
+
+.simulado-navegacao .btn-pausar:hover:not(:disabled) {
+  background-color: #e0a800;
+  border-color: #e0a800;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(224, 168, 0, 0.3);
+}
+
+/* Botão Finalizar - Perigo */
+.simulado-navegacao .btn-finalizar {
+  background-color: #dc3545;
+  color: white;
+  border: 2px solid #dc3545;
+  font-weight: 600;
+}
+
+.simulado-navegacao .btn-finalizar:hover:not(:disabled) {
+  background-color: #c82333;
+  border-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Estados desabilitados */
+.simulado-navegacao button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 600px) {
+  .simulado-navegacao {
+    gap: 8px;
+    padding: 16px 0;
+  }
+  
+  .simulado-navegacao button {
+    min-width: 100px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+  
+  /* Empilha os botões em telas muito pequenas */
+  @media (max-width: 400px) {
+    .simulado-navegacao {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .simulado-navegacao button {
+      width: 100%;
+      max-width: 280px;
+    }
+  }
+}
 /* Imagens das questões */
 .imagem-questao {
   max-width: 100%;
