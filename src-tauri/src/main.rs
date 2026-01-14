@@ -20,7 +20,6 @@ fn main() {
 
             // === Caminho das provas ===
             let provas_dir = if cfg!(debug_assertions) {
-                // ✅ Corrigido: sai de src-tauri/ para chegar na raiz do projeto
                 PathBuf::from(env!("CARGO_MANIFEST_DIR"))
                     .parent().unwrap()  // src-tauri/
                     .join("provas")
@@ -35,7 +34,6 @@ fn main() {
 
             // === Caminho do banco de dados ===
             let db_path = if cfg!(debug_assertions) {
-                // ✅ Corrigido: sai de src-tauri/ para chegar na raiz do projeto
                 PathBuf::from(env!("CARGO_MANIFEST_DIR"))
                     .parent().unwrap()  // src-tauri/
                     .parent().unwrap()  // raiz do projeto
@@ -69,7 +67,7 @@ fn main() {
             let prova_service = ProvaService::new(provas_dir.clone());
             app.manage(ProvaServiceWrapper(std::sync::Arc::new(prova_service)));
 
-            // Serviço de simulados - ✅ Corrigido: passa provas_dir como segundo parâmetro
+            // Serviço de simulados -  Corrigido: passa provas_dir como segundo parâmetro
             let simulado_repo = persistence::repository::SimuladoRepository::new(conn);
             let simulado_service = SimuladoService::new(simulado_repo, provas_dir.clone());
             app.manage(SimuladoServiceWrapper(std::sync::Arc::new(simulado_service)));

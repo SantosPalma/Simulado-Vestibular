@@ -28,13 +28,13 @@ pub fn pausar(estado: &mut EstadoSimuladoCompleto) -> Result<(), TransicaoErro> 
         return Err(TransicaoErro::EstadoInvalido);
     }
     
-    // ✅ CALCULA E SALVA O TEMPO DECORRIDO ANTES DE PAUSAR
+    // CALCULA E SALVA O TEMPO DECORRIDO ANTES DE PAUSAR
     if let Some(inicio) = estado.tempo.inicio {
         let agora = Utc::now();
         let decorrido_total = agora.signed_duration_since(inicio).num_seconds();
         estado.tempo.decorrido_segundos = decorrido_total.max(0) as u32;
         
-        // ✅ MANTÉM O tempo.inicio para uso futuro!
+        // MANTÉM O tempo.inicio para uso futuro!
         println!("⏸️ Pausando: inicio={:?}, decorrido={}", inicio, estado.tempo.decorrido_segundos);
     } else {
         return Err(TransicaoErro::TempoNaoIniciado);
@@ -53,10 +53,10 @@ pub fn retomar(estado: &mut EstadoSimuladoCompleto) -> Result<(), TransicaoErro>
     let pausado_em = estado.tempo.pausado_em.ok_or(TransicaoErro::TempoNaoIniciado)?;
     let inicio = estado.tempo.inicio.ok_or(TransicaoErro::TempoNaoIniciado)?;
     
-    // ✅ CALCULA A DURAÇÃO DA PAUSA
+    // CALCULA A DURAÇÃO DA PAUSA
     let duracao_pausa = Utc::now().signed_duration_since(pausado_em);
     
-    // ✅ ATUALIZA O TEMPO DE INÍCIO PARA COMPENSAR O TEMPO DE PAUSA
+    // ATUALIZA O TEMPO DE INÍCIO PARA COMPENSAR O TEMPO DE PAUSA
     estado.tempo.inicio = Some(inicio + duracao_pausa);
     estado.tempo.pausado_em = None;
     

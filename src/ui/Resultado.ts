@@ -26,12 +26,12 @@ export function criarResultado(
         <h2>Resultados do Simulado</h2>
         <div class="resumo-resultado">
           <div class="cartao acertos">
-            <h3>✅ Acertos</h3>
+            <h3>Acertos</h3>
             <p class="numero-grande">${resultado.acertos}</p>
             <p>de ${resultado.total_questoes}</p>
           </div>
           <div class="cartao pontuacao">
-            <h3>📊 Pontuação</h3>
+            <h3>Pontuação</h3>
             <p class="numero-grande">${pontuacao}%</p>
             <p>${resultado.erros} erro(s)</p>
           </div>
@@ -47,7 +47,7 @@ export function criarResultado(
       if (certas.length > 0) {
         html += `
           <div class="detalhes grupo-certas">
-            <h3>✅ Questões Corretas (${certas.length})</h3>
+            <h3>Questões Corretas (${certas.length})</h3>
             <ul>
         `;
         certas.forEach(d => {

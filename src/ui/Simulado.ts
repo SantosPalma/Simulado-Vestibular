@@ -7,7 +7,7 @@ import {
   pausarSimulado,
   retomarSimulado,
   finalizarSimulado,
-  atualizarTempoSimulado // ← Certifique-se de que isso existe em SimuladoClient.ts
+  atualizarTempoSimulado
 } from '../state/SimuladoClient';
 
 import type {
@@ -80,9 +80,23 @@ export function criarSimulado(
   };
 
   const renderizarQuestao = (estado: EstadoSimuladoCompleto) => {
+    console.log('🔍 renderizarQuestao() chamada - estado:', estado);
+    
     const questaoId = estado.progresso.questao_atual;
+    console.log('🔍 Questão atual ID:', questaoId);
+    
     const questao = prova.questoes.find(q => q.id === questaoId);
-    if (!questao) return;
+    if (!questao) {
+      console.error('❌ Questão não encontrada para ID:', questaoId);
+      questaoEl.innerHTML = '<p>Erro: Questão não encontrada</p>';
+      return;
+    }
+
+    console.log('🔍 Questão encontrada:', {
+      id: questao.id,
+      numero: questao.numero,
+      imagens: questao.imagens
+    });
 
     questaoEl.innerHTML = '';
 
@@ -95,14 +109,61 @@ export function criarSimulado(
     questaoEl.appendChild(enunciado);
 
     /* Imagens */
-    questao.imagens.forEach(img => {
-      const imgEl = document.createElement('img');
-      // Correção: o caminho deve ser relativo à pasta da prova
-      imgEl.src = `../provas/${provaId}/assets/${img}`;
-      imgEl.alt = `Imagem da questão ${questao.numero}`;
-      imgEl.className = 'imagem-questao';
-      questaoEl.appendChild(imgEl);
-    });
+    if (questao.imagens && questao.imagens.length > 0) {
+      console.log('🔍 Processando', questao.imagens.length, 'imagem(s)');
+      
+      questao.imagens.forEach((img, index) => {
+        console.log(`🔍 Processando imagem ${index + 1}:`, img);
+        
+        const imgEl = document.createElement('img');
+        
+        // Constrói o caminho correto
+        const partes = provaId.split('/');
+        if (partes.length < 2) {
+          console.error('❌ Formato de provaId inválido:', provaId);
+          return;
+        }
+        
+        const vestibular = partes[0];
+        const nomeArquivo = partes.slice(1).join('/'); // Suporta subpastas
+        const caminhoImagem = `/provas/${vestibular}/assets/${img}`;
+        
+        console.log('🔍 Caminho da imagem construído:', caminhoImagem);
+        
+        imgEl.src = caminhoImagem;
+        imgEl.alt = `Imagem ${index + 1} da questão ${questao.numero}`;
+        imgEl.className = 'imagem-questao';
+        imgEl.loading = 'lazy';
+        
+        // Tratamento de erro
+        imgEl.onerror = () => {
+          console.error('❌ Falha ao carregar imagem:', {
+            url: imgEl.src,
+            imagem: img,
+            questao: questao.numero,
+            dica: `Verifique se o arquivo existe em: provas/${vestibular}/assets/${img}`
+          });
+          
+          // Placeholder visual
+          imgEl.style.backgroundColor = '#f8f9fa';
+          imgEl.style.border = '2px dashed #dee2e6';
+          imgEl.style.padding = '40px';
+          imgEl.style.display = 'block';
+          imgEl.style.margin = '16px 0';
+          imgEl.alt = `⚠️ Imagem ${index + 1} não carregada`;
+          imgEl.textContent = `Imagem não disponível: ${img}`;
+        };
+        
+        // Log de sucesso
+        imgEl.onload = () => {
+          console.log('✅ Imagem carregada com sucesso:', imgEl.src);
+        };
+        
+        questaoEl.appendChild(imgEl);
+      });
+    } else {
+      console.log('ℹ️ Nenhuma imagem definida para esta questão');
+    }
 
     /* Alternativas */
     const alternativas = document.createElement('div');
@@ -163,15 +224,11 @@ export function criarSimulado(
       try {
         if (!estadoAtual) return;
         
-        // Atualiza o tempo no backend
         await atualizarTempoSimulado(simuladoId);
-        
-        // Busca o estado atualizado
         const estado = await obterEstadoSimulado(simuladoId);
         estadoAtual = estado;
         atualizarCabecalho();
         
-        // ✅ CORREÇÃO: Usa o limite do estado, não da prova
         const limiteSegundos = (estado.tempo.limite_minutos || 0) * 60;
         if (limiteSegundos > 0 && estado.tempo.decorrido_segundos >= limiteSegundos) {
           finalizar();
@@ -253,40 +310,38 @@ export function criarSimulado(
   btnFinalizar.onclick = finalizar;
 
   const carregarEstado = async () => {
-  try {
-    // ✅ PRIMEIRO: Atualiza o tempo no backend
-    await atualizarTempoSimulado(simuladoId);
-    
-    // ✅ DEPOIS: Carrega o estado atualizado
-    const estado = await obterEstadoSimulado(simuladoId);
-    estadoAtual = estado;
-    
-    console.log('📊 Estado carregado:', {
-      tempo: estado.tempo.decorrido_segundos,
-      inicio: estado.tempo.inicio,
-      estado: estado.estado
-    });
-    
-    // Inicia ou para o timer baseado no estado
-    if (estado.estado === 'EM_ANDAMENTO') {
-      iniciarTimer();
-    } else {
-      pararTimer();
+    try {
+      console.log('🔍 Iniciando carregamento do estado...');
+      
+      await atualizarTempoSimulado(simuladoId);
+      const estado = await obterEstadoSimulado(simuladoId);
+      estadoAtual = estado;
+      
+      console.log('📊 Estado carregado com sucesso:', {
+        tempo: estado.tempo.decorrido_segundos,
+        inicio: estado.tempo.inicio,
+        estado: estado.estado,
+        questaoAtual: estado.progresso.questao_atual,
+        totalQuestoes: prova.questoes.length
+      });
+      
+      if (estado.estado === 'EM_ANDAMENTO') {
+        iniciarTimer();
+      } else {
+        pararTimer();
+      }
+
+      atualizarCabecalho();
+      renderizarQuestao(estado); // ← Esta linha deve gerar logs
+      atualizarNavegacao(estado);
+    } catch (e) {
+      console.error('❌ Erro ao carregar estado:', e);
+      alert('Erro ao carregar simulado: ' + (typeof e === 'string' ? e : 'Erro desconhecido'));
+      setTimeout(carregarEstado, 2000);
     }
+  };
 
-    atualizarCabecalho();
-    renderizarQuestao(estado);
-    atualizarNavegacao(estado);
-  } catch (e) {
-    console.error('❌ Erro ao carregar estado:', e);
-    alert('Erro ao carregar simulado: ' + (typeof e === 'string' ? e : 'Erro desconhecido'));
-    
-    // Tenta novamente após 2 segundos
-    setTimeout(carregarEstado, 2000);
-  }
-};
-
-  // ✅ Limpeza quando o componente for removido
+  // Limpeza quando o componente for removido
   const observer = new MutationObserver(() => {
     if (!container.isConnected) {
       pararTimer();
@@ -297,6 +352,7 @@ export function criarSimulado(
   observer.observe(document.body, { childList: true, subtree: true });
 
   // Carrega o estado inicial
+  console.log('🔍 Iniciando simulado com ID:', simuladoId, 'Prova ID:', provaId);
   carregarEstado();
   
   return container;

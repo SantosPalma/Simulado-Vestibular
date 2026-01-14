@@ -27,7 +27,7 @@
       "area_id": "humanas",
       "numero": 2,
       "enunciado": "Quem escreveu 'Dom Casmurro'?",
-      "imagens": [],
+      "imagens": ["dom_casmurro.jpg"],
       "alternativas": [
         { "id": "A", "texto": "Machado de Assis" },
         { "id": "B", "texto": "José de Alencar" },

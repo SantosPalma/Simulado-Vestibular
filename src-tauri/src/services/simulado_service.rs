@@ -68,7 +68,7 @@ impl SimuladoService {
         
         let id = self.repo.salvar(&simulado)?;
         
-        println!("✅ Simulado iniciado com ID: {}, tempo.inicio: {:?}", id, estado.tempo.inicio);
+        println!(" Simulado iniciado com ID: {}, tempo.inicio: {:?}", id, estado.tempo.inicio);
         Ok(id)
     }
 
@@ -83,8 +83,8 @@ impl SimuladoService {
                 let agora = Utc::now();
                 let decorrido_total = agora.signed_duration_since(inicio).num_seconds();
                 
-                println!("⏰ Atualizando tempo: ID={}, inicio={:?}, agora={:?}, decorrido={}", 
-                    simulado_id, inicio, agora, decorrido_total);
+               // println!("⏰ Atualizando tempo: ID={}, inicio={:?}, agora={:?}, decorrido={}", 
+                 //   simulado_id, inicio, agora, decorrido_total);
                     
                 estado.tempo.decorrido_segundos = decorrido_total.max(0) as u32;
                 
@@ -138,7 +138,7 @@ impl SimuladoService {
             simulado.estado().map_err(|e| anyhow!(e)) 
     }
 
-    // ✅ Função auxiliar dentro do impl
+    //Função auxiliar dentro do impl
     fn extrair_numero_questao(questao_id: &str) -> Result<usize> {
         let numero_str = questao_id.strip_prefix('Q')
             .ok_or_else(|| anyhow!("ID da questão inválido: {}", questao_id))?;
@@ -152,7 +152,7 @@ impl SimuladoService {
             .map_err(|e| anyhow!("Erro ao converter número da questão {}: {}", questao_id, e))
     }
 
-    // ✅ Função auxiliar dentro do impl
+    // Função auxiliar dentro do impl
     fn prova_tem_questao(&self, prova_id: &str, questao_id: &str) -> Result<bool> {
         // Cria uma nova instância do serviço de provas
         let prova_service = ProvaService::new(self.provas_dir.clone());
