@@ -11,81 +11,82 @@ impl ProvaService {
         Self { provas_dir }
     }
 
-    /// Lista todos os IDs de provas disponíveis no formato "vestibular/nome_arquivo"
-    pub fn listar_ids(&self) -> Result<Vec<String>, std::io::Error> {
-        let mut ids = Vec::new();
-        
-        if !self.provas_dir.exists() {
-            println!("⚠️ Pasta de provas não existe: {:?}", self.provas_dir);
-            return Ok(ids);
-        }
+/// Lista todos os IDs de provas disponíveis no formato "vestibular/nome_pasta"
+pub fn listar_ids(&self) -> Result<Vec<String>, std::io::Error> {
+    let mut ids = Vec::new();
+    
+    if !self.provas_dir.exists() {
+        println!("⚠️ Pasta de provas não existe: {:?}", self.provas_dir);
+        return Ok(ids);
+    }
 
-        println!("🔍 Listando provas em: {:?}", self.provas_dir);
+    println!("🔍 Listando provas em: {:?}", self.provas_dir);
+    
+    // Percorre cada pasta vestibular (enem, fuvest, etc.)
+    for entry in fs::read_dir(&self.provas_dir)? {
+        let entry = entry?;
+        let vestibular_path = entry.path();
         
-        for entry in fs::read_dir(&self.provas_dir)? {
-            let entry = entry?;
-            let path = entry.path();
-            
-            if path.is_dir() {
-                let vestibular = path.file_name()
-                    .and_then(|s| s.to_str())
-                    .map(|s| s.to_string())
-                    .unwrap_or_else(|| "unknown".to_string());
-                
+        // Verifica se é um diretório (vestibular)
+        if vestibular_path.is_dir() {
+            if let Some(vestibular) = vestibular_path.file_name().and_then(|s| s.to_str()) {
                 println!("📁 Encontrado vestibular: {}", vestibular);
                 
-                if let Ok(vestibular_dir) = fs::read_dir(&path) {
-                    for prova_entry in vestibular_dir {
-                        let prova_entry = prova_entry?;
-                        let prova_path = prova_entry.path();
-                        
-                        if prova_path.is_file() && prova_path.extension().map_or(false, |ext| ext == "json") {
-                            if let Some(nome_arquivo) = prova_path.file_stem().and_then(|s| s.to_str()) {
-                                let id = format!("{}/{}", vestibular, nome_arquivo);
+                // Agora percorre as SUBPASTAS (provas individuais)
+                for prova_entry in fs::read_dir(&vestibular_path)? {
+                    let prova_entry = prova_entry?;
+                    let prova_path = prova_entry.path();
+                    
+                    // Verifica se é uma subpasta (prova individual)
+                    if prova_path.is_dir() {
+                        if let Some(nome_prova) = prova_path.file_name().and_then(|s| s.to_str()) {
+                            // ✅ Verifica se existe arquivo prova.json dentro da subpasta
+                            let json_path = prova_path.join("prova.json");
+                            if json_path.exists() {
+                                let id = format!("{}/{}", vestibular, nome_prova);
                                 println!("📄 Encontrada prova: {}", id);
                                 ids.push(id);
+                            } else {
+                                println!("⚠️ Pasta {} não contém prova.json", nome_prova);
                             }
                         }
                     }
                 }
             }
         }
-        
-        println!("✅ Provas listadas: {:?}", ids);
-        Ok(ids)
+    }
+    
+    println!("✅ Provas listadas: {:?}", ids);
+    Ok(ids)
+}
+pub fn carregar(&self, prova_id: &str) -> Result<Prova, ProvaServiceError> {
+    let prova_path = self.provas_dir.join(prova_id).join("prova.json");
+    
+    println!("📂 Tentando carregar prova de: {:?}", prova_path);
+    
+    if !prova_path.exists() {
+        println!("❌ Arquivo não encontrado: {:?}", prova_path);
+        return Err(ProvaServiceError::NaoEncontrada(prova_id.to_string()));
     }
 
-    /// Carrega uma prova pelo ID (ex: "enem/2022_dia1")
-    pub fn carregar(&self, prova_id: &str) -> Result<Prova, ProvaServiceError> {
-        // Correção: o ID já inclui a pasta + nome do arquivo
-        // prova_id = "enem/2022_dia1" → caminho = "provas/enem/2022_dia1.json"
-        let prova_path = self.provas_dir.join(prova_id).with_extension("json");
-        
-        println!("📂 Tentando carregar prova de: {:?}", prova_path); // Debug
-        
-        if !prova_path.exists() {
-            println!("❌ Arquivo não encontrado: {:?}", prova_path);
-            return Err(ProvaServiceError::NaoEncontrada(prova_id.to_string()));
-        }
+    let conteudo = fs::read_to_string(&prova_path)
+        .map_err(|e| {
+            println!("❌ Erro ao ler arquivo: {}", e);
+            ProvaServiceError::LeituraFalhou(prova_path.clone(), e)
+        })?;
 
-        let conteudo = fs::read_to_string(&prova_path)
-            .map_err(|e| {
-                println!("❌ Erro ao ler arquivo: {}", e);
-                ProvaServiceError::LeituraFalhou(prova_path.clone(), e)
-            })?;
+    let prova: Prova = serde_json::from_str(&conteudo)
+        .map_err(|e| {
+            println!("❌ Erro ao parsear JSON: {}", e);
+            ProvaServiceError::ParseJson(prova_path, e)
+        })?;
 
-        let prova: Prova = serde_json::from_str(&conteudo)
-            .map_err(|e| {
-                println!("❌ Erro ao parsear JSON: {}", e);
-                ProvaServiceError::ParseJson(prova_path, e)
-            })?;
+    prova.validate_schema()
+        .map_err(ProvaServiceError::Validacao)?;
 
-        prova.validate_schema()
-            .map_err(ProvaServiceError::Validacao)?;
-
-        println!("✅ Prova carregada com sucesso: {}", prova_id);
-        Ok(prova)
-    }
+    println!("✅ Prova carregada com sucesso: {}", prova_id);
+    Ok(prova)
+}
 
     pub fn questao_existe(&self, prova_id: &str, questao_id: &str) -> Result<bool, String> {
         match self.carregar(prova_id) {

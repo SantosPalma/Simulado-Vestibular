@@ -2,7 +2,7 @@ use crate::domain::{estado::EstadoSimulado, simulado::Simulado};
 use crate::domain::estado::EstadoSimuladoCompleto; 
 use crate::persistence::repository::SimuladoRepository;
 use crate::state::transitions;
-use crate::services::prova_service::ProvaService; // ✅ Import importante
+use crate::services::prova_service::ProvaService; 
 use anyhow::{Result, anyhow};
 use chrono::Utc;
 use std::path::PathBuf;
@@ -37,13 +37,21 @@ pub struct ResultadoSimulado {
 
 pub struct SimuladoService {
     repo: SimuladoRepository,
-    provas_dir: PathBuf, // ✅ Adiciona o caminho das provas
+    provas_dir: PathBuf, 
 }
 
 impl SimuladoService {
     pub fn new(repo: SimuladoRepository, provas_dir: PathBuf) -> Self {
         Self { repo, provas_dir }
     }
+    
+    fn prova_existe(&self, prova_id: &str) -> Result<bool> {
+    let prova_service = ProvaService::new(self.provas_dir.clone());
+    match prova_service.carregar(prova_id) {
+        Ok(_) => Ok(true),
+        Err(_) => Ok(false),
+    }
+}
 
     pub fn iniciar_simulado(
         &self,
@@ -52,6 +60,11 @@ impl SimuladoService {
         ano: i32,
         duracao_minutos: i32,
     ) -> Result<i64> {
+
+          if !self.prova_existe(&prova_id)? {
+        return Err(anyhow!("Prova '{}' não encontrada", prova_id));
+    }
+    
         let mut simulado = Simulado::novo(prova_id, vestibular, ano, duracao_minutos)?;
         let mut estado = simulado.estado()?;
         
@@ -83,7 +96,7 @@ impl SimuladoService {
                 let agora = Utc::now();
                 let decorrido_total = agora.signed_duration_since(inicio).num_seconds();
                 
-               // println!("⏰ Atualizando tempo: ID={}, inicio={:?}, agora={:?}, decorrido={}", 
+               // println!(" Atualizando tempo: ID={}, inicio={:?}, agora={:?}, decorrido={}", 
                  //   simulado_id, inicio, agora, decorrido_total);
                     
                 estado.tempo.decorrido_segundos = decorrido_total.max(0) as u32;

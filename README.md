@@ -29,6 +29,73 @@ Este projeto nasce com um compromisso social claro: **democratizar o acesso à p
 | **Banco de Dados** | SQLite | Leve, confiável e integrado ao app sem servidores externos |
 | **Arquitetura** | Separation of Concerns | Código organizado em UI, estado e lógica de negócio |
 
+---
+
+### 🗂️ Estrutura de Provas
+
+O simulador carrega provas a partir da pasta `provas/` na raiz do projeto. Cada prova deve seguir esta estrutura:
+
+```
+provas/
+└── {vestibular}/
+    └── {nome_da_prova}/
+        ├── prova.json
+        └── assets/ (opcional)
+            ├── imagem1.jpg
+            └── grafico.png
+```
+
+#### Exemplo:
+```
+provas/
+└── enem/
+    └── 2022_dia1/
+        ├── prova.json
+        └── assets/
+            └── dom_casmurro.jpg
+```
+
+---
+
+### 📄 Modelo de `prova.json`
+
+```json
+{
+  "schema_version": "1.0",
+  "content_version": "2022-1.0",
+  "vestibular": "ENEM",
+  "ano": 2022,
+  "dia": 1,
+  "duracao_minutos": 300,
+  "total_questoes": 2,
+  "questoes": [
+    {
+      "id": "Q01",
+      "area_id": "linguagens",
+      "numero": 1,
+      "enunciado": "Qual é a capital da França?",
+      "imagens": ["paris_mapa.jpg"],
+      "alternativas": [
+        { "id": "A", "texto": "Lisboa" },
+        { "id": "B", "texto": "Madri" },
+        { "id": "C", "texto": "Paris" },
+        { "id": "D", "texto": "Roma" },
+        { "id": "E", "texto": "Berlim" }
+      ],
+      "resposta_correta": "C"
+    }
+  ]
+}
+```
+
+> 💡 **Dicas importantes**:
+> - O arquivo **deve se chamar `prova.json`**
+> - As imagens referenciadas em `"imagens"` devem estar na pasta `assets/` da mesma prova
+> - IDs das questões devem seguir o formato `Q01`, `Q02`, etc.
+> - A pasta `{nome_da_prova}` define o ID usado internamente (ex: `enem/2022_dia1`)
+
+---
+
 ### Principais recursos:
 - ✅ Simulados cronometrados com pausa/retomada
 - ✅ Navegação entre questões (avançar/voltar)
@@ -73,5 +140,4 @@ Este projeto é licenciado sob a **GNU Affero General Public License v3.0 (AGPL-
 
 ---
 
-Desenvolvido com ❤️ para democratizar o acesso à educação de qualidade.  
-**Não é um produto. É um ato de resistência.**
+Feito para funcionar offline em qualquer computador — porque estudar não deveria depender de internet, cadastro ou dinheiro.

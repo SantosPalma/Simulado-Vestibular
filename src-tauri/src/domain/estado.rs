@@ -53,6 +53,51 @@ pub struct EstadoSimuladoCompleto {
     pub configuracoes: ConfiguracoesSimulado,
 }
 
+impl EstadoSimulado {
+    pub const fn pode_avancar(&self) -> bool {
+        matches!(self, Self::EmAndamento)
+    }
+    
+    pub const fn pode_pausar(&self) -> bool {
+        matches!(self, Self::EmAndamento)
+    }
+    
+    pub const fn pode_retomar(&self) -> bool {
+        matches!(self, Self::Pausado)
+    }
+    
+    pub const fn esta_ativo(&self) -> bool {
+        matches!(self, Self::EmAndamento | Self::Pausado)
+    }
+}
+
+impl ProgressoSimulado {
+    pub fn validate(&self) -> Result<(), String> {
+        if self.total == 0 {
+            return Ok(());
+        }
+        
+        let numero_str = self.questao_atual.strip_prefix('Q')
+            .ok_or_else(|| "ID da questão deve começar com 'Q'".to_string())?;
+        
+        let numero_atual: usize = numero_str.parse()
+            .map_err(|_| "Número da questão inválido".to_string())?;
+        
+        if numero_atual < 1 || numero_atual > self.total {
+            return Err(format!(
+                "Questão atual {} fora dos limites [1, {}]", 
+                self.questao_atual, self.total
+            ));
+        }
+        
+        if self.respondidas > self.total {
+            return Err("Número de questões respondidas excede o total".to_string());
+        }
+        
+        Ok(())
+    }
+}
+
 impl Default for EstadoSimuladoCompleto {
     fn default() -> Self {
         Self {
@@ -78,7 +123,6 @@ impl Default for EstadoSimuladoCompleto {
         }
     }
 }
-
 
 impl Default for TempoSimulado {
     fn default() -> Self {

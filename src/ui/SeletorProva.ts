@@ -44,19 +44,25 @@ export function criarSeletorProva(onProvaSelecionada: SeletorProvaCallback): HTM
       ids.forEach(id => {
         const item = document.createElement('li');
         const botao = document.createElement('button');
-        
         try {
-          const partes = id.split('/');
-          const vestibular = partes[0].toUpperCase();
-          const ano = parseInt(partes[1].split('_')[0]);
-          botao.textContent = `${vestibular} ${ano}`;
+              const partes = id.split('/');
+              if (partes.length < 2) {
+                throw new Error('Formato de ID inválido');
+              }
+              
+              const vestibular = partes[0].toUpperCase();
+              // Extrai o ano do nome da prova (ex: "2022_dia1" → 2022)
+              const anoMatch = partes[1].match(/^(\d{4})/);
+              const ano = anoMatch ? parseInt(anoMatch[1]) : 0;
+              
+              botao.textContent = ano > 0 ? `${vestibular} ${ano}` : id;
         } catch (e) {
-          console.warn('Formato de ID inválido:', id, e);
-          botao.textContent = id.replace('_', ' ').toUpperCase();
+            console.warn('Formato de ID inválido:', id, e);
+            botao.textContent = id.replace(/_/g, ' ').toUpperCase();
         }
 
-        botao.addEventListener('click', async () => {
-  let originalText = botao.textContent || '';
+                  botao.addEventListener('click', async () => {
+            let originalText = botao.textContent || '';
 
   try {
     botao.textContent = 'Iniciando...';

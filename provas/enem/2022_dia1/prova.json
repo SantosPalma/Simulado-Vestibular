@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0",
+  "content_version": "2022-1.0",
+  "vestibular": "ENEM",
+  "ano": 2022,
+  "dia": 1,
+  "duracao_minutos": 5,
+  "total_questoes": 8,
+  "questoes": [
+    {
+      "id": "Q01",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 1,
+      "enunciado": "Ao relatar suas vivências, o autor destaca o(a):",
+      "imagens": ["2022_01.png"],
+      "alternativas": [
+        { "id": "A", "texto": "qualidade da educação formal em Miami." },
+        { "id": "B", "texto": "prestígio da cultura cubana nos Estados Unidos." },
+        { "id": "C", "texto": "oportunidade de qualificação profissional em Miami." },
+        { "id": "D", "texto": "cenário da integração de cubanos nos Estados Unidos." },
+        { "id": "E", "texto": "fortalecimento do elo familiar em comunidades estadunidenses." }
+      ],
+      "resposta_correta": "D"
+    },
+    {
+      "id": "Q02",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 2,
+      "enunciado": "O texto aborda relações interpessoais com o objetivo de:",
+      "imagens": ["2022_02.png"],
+      "alternativas": [
+        { "id": "A", "texto": "problematizar o papel de gênero em casamentos modernos." },
+        { "id": "B", "texto": "apontar a relevância da educação formal na escolha de parceiros" },
+        { "id": "C", "texto": "comparar a expectativa de parceiros amorosos em épocas distintas" },
+        { "id": "D", "texto": "discutir o uso de aplicativos para proporcionar encontros românticos" },
+        { "id": "E", "texto": "valorizar a importância da aparência física na seleção de pretendentes." }
+      ],
+      "resposta_correta": "C"
+    },
+
+    {
+      "id": "Q03",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 3,
+      "enunciado": "Nessa tirinha, o comportamento da mulher expressa:",
+      "imagens": ["2022_03.png"],
+      "alternativas": [
+        { "id": "A", "texto": "revolta com a falta de sorte." },
+        { "id": "B", "texto": "gosto pela prática da leitura." },
+        { "id": "C", "texto": "receio pelo futuro do casamento." },
+        { "id": "D", "texto": "entusiasmo com os livros de terror." },
+        { "id": "E", "texto": "rejeição ao novo tipo de residência." }
+      ],
+      "resposta_correta": "B"
+    },
+
+    {
+      "id": "Q04",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 4,
+      "enunciado": "O termo “downsides” introduz a ideia de que o Instagram é responsável por",
+      "imagens": ["2022_04.png"],
+      "alternativas": [
+        { "id": "A", "texto": "oferecer recursos de fotografia." },
+        { "id": "B", "texto": "divulgar problemas dos usuários." },
+        { "id": "C", "texto": "estimular aceitação dos seguidores." },
+        { "id": "D", "texto": "provocar ansiedade nos adolescentes." },
+        { "id": "E", "texto": "aproximar pessoas ao redor do mundo." }
+      ],
+      "resposta_correta": "D"
+    },
+    
+    {
+      "id": "Q05",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero":5,
+      "enunciado": "Nesse poema, o eu lírico evidencia um sentimento de",
+      "imagens": ["2022_05.png"],
+      "alternativas": [
+        { "id": "A", "texto": "contentamento com a interação virtual." },
+        { "id": "B", "texto": "zelo com o envio de mensagens." },
+        { "id": "C", "texto": "preocupação com a composição de textos." },
+        { "id": "D", "texto": "mágoa com o comportamento de alguém." },
+        { "id": "E", "texto": "insatisfação com uma forma de comunicação." }
+      ],
+      "resposta_correta": "E"
+    },
+
+    {
+      "id": "Q06",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 6,
+      "enunciado": "Nesse texto de opinião, as marcas linguísticas revelam uma situação distensa e de pouca formalidade, o que se evidencia pelo(a):",
+      "imagens": ["2022_06.png"],
+      "alternativas": [
+        { "id": "A", "texto": "impessoalização ao longo do texto, como em: “se não há mais tempo”." },
+        { "id": "B", "texto": "construção de uma atmosfera de urgência, em palavras como: “pressa”." },
+        { "id": "C", "texto": "repetição de uma determinada estrutura sintática, como em: “Se tudo é para ontem”." },
+        { "id": "D", "texto":"ênfase no emprego da hipérbole, como em: “uma refeição que pode durar uma vida”. " },
+        { "id": "E", "texto": "emprego de metáforas, como em: “a vida engata uma primeira e sai em disparada”." }
+      ],
+      "resposta_correta": "E"
+    },
+
+    {
+      "id": "Q07",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 7,
+      "enunciado": "Os dois textos abordam a temática de animais de rua, porém, em relação ao Texto I, o Texto II",
+      "imagens": ["2022_07.png"],
+      "alternativas": [
+        { "id": "A", "texto": "problematiza a necessidade de adoção de animais sem lar." },
+        { "id": "B", "texto": "valida a troca afetiva entre os pets adotados e seus donos" },
+        { "id": "C", "texto": "reforça a importância da campanha de adoção de animais" },
+        { "id": "D", "texto": "exalta a natureza amigável de cães e de gatos." },
+        { "id": "E", "texto": "promove a campanha de adoção de animais." }
+      ],
+      "resposta_correta": "A"
+    },
+
+    {
+      "id": "Q08",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 8,
+      "enunciado": "Ao divulgar a adaptação do jogo para questões relativas a ações e habilidades de mulheres notáveis, o texto busca: ",
+      "imagens": ["2022_08.png"],
+      "alternativas": [
+        { "id": "A", "texto": "contribuir para a formação cidadã dos jogadores." },
+        { "id": "B", "texto": "refutar a competitividade entre potenciais compradores." },
+        { "id": "C", "texto": "estimular a competitividade entre potenciais compradores." },
+        { "id": "D", "texto": "exemplificar estratégias de arrecadação financeira pela internet." },
+        { "id": "E", "texto": "desenvolver conhecimentos lúdicos específicos dos tempos atuais" }
+      ],
+      "resposta_correta": "A"
+    }
+  ]
+}

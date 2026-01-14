@@ -34,7 +34,6 @@ pub fn pausar(estado: &mut EstadoSimuladoCompleto) -> Result<(), TransicaoErro> 
         let decorrido_total = agora.signed_duration_since(inicio).num_seconds();
         estado.tempo.decorrido_segundos = decorrido_total.max(0) as u32;
         
-        // MANTÉM O tempo.inicio para uso futuro!
         println!("⏸️ Pausando: inicio={:?}, decorrido={}", inicio, estado.tempo.decorrido_segundos);
     } else {
         return Err(TransicaoErro::TempoNaoIniciado);

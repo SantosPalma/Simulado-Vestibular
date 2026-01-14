@@ -40,20 +40,20 @@ export function criarSimulado(
   navegacao.className = 'simulado-navegacao';
 
  const btnAnterior = document.createElement('button');
-btnAnterior.className = 'btn-anterior'; // ← classe específica
+btnAnterior.className = 'btn-anterior'; 
 btnAnterior.textContent = 'Anterior';
 btnAnterior.disabled = true;
 
 const btnAvancar = document.createElement('button');
-btnAvancar.className = 'btn-proxima'; // ← classe específica
+btnAvancar.className = 'btn-proxima'; 
 btnAvancar.textContent = 'Próxima';
 
 const btnPausar = document.createElement('button');
-btnPausar.className = 'btn-pausar'; // ← classe específica
+btnPausar.className = 'btn-pausar';
 btnPausar.textContent = 'Pausar';
 
 const btnFinalizar = document.createElement('button');
-btnFinalizar.className = 'btn-finalizar'; // ← classe específica
+btnFinalizar.className = 'btn-finalizar'; 
 btnFinalizar.textContent = 'Finalizar';
 
 navegacao.append(btnAnterior, btnAvancar, btnPausar, btnFinalizar);
@@ -108,64 +108,57 @@ container.append(cabecalho, questaoEl, navegacao);
     titulo.textContent = `Questão ${questao.numero}`;
     questaoEl.appendChild(titulo);
 
-    const enunciado = document.createElement('p');
+
+
+/* Imagens */
+if (questao.imagens && questao.imagens.length > 0) {
+  console.log('🔍 Processando', questao.imagens.length, 'imagem(s)');
+  
+  questao.imagens.forEach((img, index) => {
+    console.log(`🔍 Processando imagem ${index + 1}:`, img);
+    
+    const imgEl = document.createElement('img');
+    
+    const caminhoImagem = `/provas/${provaId}/assets/${img}`;
+    
+    console.log('🔍 Caminho da imagem construído:', caminhoImagem);
+    
+    imgEl.src = caminhoImagem;
+    imgEl.alt = `Imagem ${index + 1} da questão ${questao.numero}`;
+    imgEl.className = 'imagem-questao';
+    imgEl.loading = 'lazy';
+    
+    // Tratamento de erro
+    imgEl.onerror = () => {
+      console.error('❌ Falha ao carregar imagem:', {
+        url: imgEl.src,
+        imagem: img,
+        questao: questao.numero,
+        dica: `Verifique se o arquivo existe em: provas/${provaId}/assets/${img}`
+      });
+      
+      // Placeholder visual
+      imgEl.style.backgroundColor = '#f8f9fa';
+      imgEl.style.border = '2px dashed #dee2e6';
+      imgEl.style.padding = '40px';
+      imgEl.style.display = 'block';
+      imgEl.style.margin = '16px 0';
+      imgEl.alt = `⚠️ Imagem ${index + 1} não carregada`;
+      imgEl.textContent = `Imagem não disponível: ${img}`;
+    };
+    
+    imgEl.onload = () => {
+      console.log('✅ Imagem carregada com sucesso:', imgEl.src);
+    };
+    
+    questaoEl.appendChild(imgEl);
+  });
+} else {
+  console.log('ℹ️ Nenhuma imagem definida para esta questão');
+}
+ const enunciado = document.createElement('p');
     enunciado.innerHTML = questao.enunciado;
     questaoEl.appendChild(enunciado);
-
-    /* Imagens */
-    if (questao.imagens && questao.imagens.length > 0) {
-      console.log('🔍 Processando', questao.imagens.length, 'imagem(s)');
-      
-      questao.imagens.forEach((img, index) => {
-        console.log(`🔍 Processando imagem ${index + 1}:`, img);
-        
-        const imgEl = document.createElement('img');
-        
-        // Constrói o caminho correto
-        const partes = provaId.split('/');
-        if (partes.length < 2) {
-          console.error('❌ Formato de provaId inválido:', provaId);
-          return;
-        }
-        
-        const vestibular = partes[0];
-        const nomeArquivo = partes.slice(1).join('/'); // Suporta subpastas
-        const caminhoImagem = `/provas/${vestibular}/assets/${img}`;
-        
-        console.log('🔍 Caminho da imagem construído:', caminhoImagem);
-        
-        imgEl.src = caminhoImagem;
-        imgEl.alt = `Imagem ${index + 1} da questão ${questao.numero}`;
-        imgEl.className = 'imagem-questao';
-        imgEl.loading = 'lazy';
-        
-        // Tratamento de erro
-        imgEl.onerror = () => {
-          console.error('❌ Falha ao carregar imagem:', {
-            url: imgEl.src,
-            imagem: img,
-            questao: questao.numero,
-            dica: `Verifique se o arquivo existe em: provas/${vestibular}/assets/${img}`
-          });
-          
-          // Placeholder visual
-          imgEl.style.backgroundColor = '#f8f9fa';
-          imgEl.style.border = '2px dashed #dee2e6';
-          imgEl.style.padding = '40px';
-          imgEl.style.display = 'block';
-          imgEl.style.margin = '16px 0';
-          imgEl.alt = `⚠️ Imagem ${index + 1} não carregada`;
-          imgEl.textContent = `Imagem não disponível: ${img}`;
-        };
-                imgEl.onload = () => {
-          console.log('✅ Imagem carregada com sucesso:', imgEl.src);
-        };
-        
-        questaoEl.appendChild(imgEl);
-      });
-    } else {
-      console.log('ℹ️ Nenhuma imagem definida para esta questão');
-    }
 
     /* Alternativas */
     const alternativas = document.createElement('div');
