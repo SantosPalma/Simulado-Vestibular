@@ -4,8 +4,8 @@
   "vestibular": "ENEM",
   "ano": 2022,
   "dia": 1,
-  "duracao_minutos": 5,
-  "total_questoes": 8,
+  "duracao_minutos": 300,
+  "total_questoes": 45,
   "questoes": [
     {
       "id": "Q01",
@@ -133,5 +133,564 @@
       ],
       "resposta_correta": "A"
     }
+    ,
+     {
+      "id": "Q09",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 9,
+      "enunciado": "Para convencer o público-alvo sobre a necessidade de um trânsito mais seguro, essa peça publicitária apela para o(a)",
+      "imagens": ["2022_09.png"],
+      "alternativas": [
+        { "id": "A", "texto": "sentimento de culpa provocado no conduto causador de acidentes."},
+        { "id": "B", "texto": "dano psicológico causado nas vítimas da violência nas estradas."},
+        { "id": "C", "texto": "importância do monitoramento do trânsito pelas autoridades competentes." },
+        { "id": "D", "texto": "necessidade de punição a motoristas alcoolizados envolvidos em acidentes" },
+        { "id": "E", "texto": "sofrimento decorrente da perda de entes queridos em acidentes automobilísticos." }
+      ],
+      "resposta_correta": "A"
+    }
+      ,
+     {
+      "id": "Q10",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 10,
+      "enunciado": "Segundo os autores citados no texto, a expansão de possibilidades no campo das manifestações artísticas promovida pela internet pode pôr em risco o(a):",
+      "imagens": ["2022_10.png"],
+      "alternativas": [
+        { "id": "A", "texto": "sucesso dos artistas." },
+        { "id": "B", "texto": "valorização dos suportes." },
+        { "id": "C", "texto": "proteção da produção estética." },
+        { "id": "D", "texto": "modo de distribuição de obras." },
+        { "id": "E", "texto": "compartilhamento das obras artísticas." }
+      ],
+      "resposta_correta": "C"
+    }  ,
+     {
+      "id": "Q11",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 11,
+      "enunciado": "O texto revela que, quando a sociedade promove o desenvolvimento de uma nova técnica, o que mais impacta seus usuários é a",
+      "imagens": ["2022_11.png"],
+      "alternativas": [
+        { "id": "A", "texto": "dificuldade na apropriação da nova linguagem." },
+        { "id": "B", "texto": "valorização da utilização da nova tecnologia." },
+        { "id": "C", "texto": "recorrência das mudanças tecnológicas." },
+        { "id": "D", "texto": "suplantação imediata dos conhecimentos prévios." },
+        { "id": "E", "texto": "rapidez no aprendizado do manuseio das novas invenções." }
+      ],
+      "resposta_correta": "A"
+    }  ,
+     {
+      "id": "Q12",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 12,
+      "enunciado": "Nesse texto, o uso da norma-padrão defendido por um dos personagens torna-se inadequado em razão do(a)",
+      "imagens": ["2022_12.png"],
+      "alternativas": [
+        { "id": "A", "texto": "falta de compreensão causada pelo choque entre geração." },
+        { "id": "B", "texto": "contexto de comunicação em que a conversa se dá." },
+        { "id": "C", "texto": "grau de polidez distinto entre os interlocutores." },
+        { "id": "D", "texto": "diferença de escolaridade entre os falantes." },
+        { "id": "E", "texto": "nível social dos participantes da situação." }
+      ],
+      "resposta_correta": "B"
+    }  ,
+     {
+      "id": "Q13",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 13,
+      "enunciado": "Ao analisarem a correlação entre os hábitos e o perfil socioeconômico dos usuários da internet no Brasil, os pesquisadores",
+      "imagens": ["2022_13.png"],
+      "alternativas": [
+        { "id": "A", "texto": "apontam o desenvolvimento econômico como solução para ampliar o uso da rede." },
+        { "id": "B", "texto": "questionam a crença de que o acesso à informação é igualitário e democrático" },
+        { "id": "C", "texto": "afirmam que o uso comercial da rede é a causa da exclusão de minorias." },
+        { "id": "D", "texto": "refutam o vínculo entre níveis de escolaridade e dificuldade de acesso" },
+        { "id": "E", "texto": "condicionam a expansão da rede à elaboração de políticas inclusivas." }
+      ],
+      "resposta_correta": "B"
+    }  ,
+     {
+      "id": "Q14",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 14,
+      "enunciado": "O Texto II exemplifica o que se afirma no Texto I, na medida em que defende a ideia de que as escolhas lexicais são resultantes de um",
+      "imagens": ["2022_14.png"],
+      "alternativas": [
+        { "id": "A", "texto": "expediente próprio do sistema linguístico que nos apresenta diferentes possibilidades para traduzir estados de coisas." },
+        { "id": "B", "texto": "ato inventivo de nomear novas realidades que surgem diante de uma comunidade de falantes de uma língua." },
+        { "id": "C", "texto": "mecanismo de apropriação de formas linguísticas que estão no acervo da formação do idioma nacional." },
+        { "id": "D", "texto": "processo de incorporação de preconceitos que são recorrentes na história de uma sociedade." },
+        { "id": "E", "texto": "recurso de expressão marcado pela objetividade que se requer na comunicação diária." }
+      ],
+      "resposta_correta": "D"
+    }  ,
+     {
+      "id": "Q15",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 15,
+      "enunciado": " Considerando-se a função social dos posts, essa imagem evidencia a apropriação de outro gênero com o objetivo de",
+      "imagens": ["2022_15.png"],
+      "alternativas": [
+        { "id": "A", "texto": "promover o uso adequado de campanhas publicitárias do governo." },
+        { "id": "B", "texto": "divulgar o projeto sobre transparência da administração pública" },
+        { "id": "C", "texto": "responsabilizar o cidadão pelo controle dos gastos públicos" },
+        { "id": "D", "texto": "delegar a gestão de projetos de lei ao contribuinte." },
+        { "id": "E", "texto": "assegurar a fiscalização dos gastos públicos." }
+      ],
+      "resposta_correta": "B"
+    }  ,
+     {
+      "id": "Q16",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 16,
+      "enunciado": "O texto é exemplar de um gênero discursivo que cumpre a função social de",
+      "imagens": ["2022_16.png"],
+      "alternativas": [
+        { "id": "A", "texto": "narrar, por meio de imagem e poesia, cenas da vida das irmãs Petra e Elena." },
+        { "id": "B", "texto": "descrever, por meio das memórias de Petra, a separação de duas irmãs." },
+        { "id": "C", "texto": "sintetizar, por meio das principais cenas do filme, a história de Elena." },
+        { "id": "D", "texto": "lançar, por meio da história de vida do autor, um filme autobiográfico" },
+        { "id": "E", "texto": "avaliar, por meio de análise crítica, o filme em referência." }
+      ],
+      "resposta_correta": "E"
+    }  ,
+     {
+      "id": "Q17",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 17,
+      "enunciado": "Esse texto, que simula um verbete para a palavra “palavra’’, constitui-se como um poema porque",
+      "imagens": ["2022_17.png"],
+      "alternativas": [
+        { "id": "A", "texto": "tematiza o fazer poético, como em “Os poetas classificam as palavras pela alma”." },
+        { "id": "B", "texto": "utiliza o recurso expressivo da metáfora, como em “As palavras têm corpo e alma”." },
+        { "id": "C", "texto": "valoriza a gramática da língua, como em “substantivo, adjetivo, verbo, advérbio, conjunção”." },
+        { "id": "D", "texto": "estabelece comparações, como em “As palavras têmcorpo e alma, mas são diferentes das pessoas”." },
+        { "id": "E", "texto": "apresenta informações pertinentes acerca do conceito de “palavra”, como em “As gramáticas classificam as palavras" }
+      ],
+      "resposta_correta": "B"
+    }  ,
+     {
+      "id": "Q18",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 18,
+      "enunciado": "O recurso que caracteriza a organização estrutural desse texto é o(a) ",
+      "imagens": ["2022_18.png"],
+      "alternativas": [
+        { "id": "A", "texto": "ustaposição de sequências verbais e nominais." },
+        { "id": "B", "texto": "mudança de eventos resultante do jogo temporal." },
+        { "id": "C", "texto": "uso de adjetivos qualificativos na descrição do cenário." },
+        { "id": "D", "texto": "encadeamento semântico pelo uso de substantivos sinônimos" },
+        { "id": "E", "texto": "inter-relação entre orações por elementos linguísticos lógicos." }
+      ],
+      "resposta_correta": "A"
+    }  ,
+     {
+      "id": "Q19",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 19,
+      "enunciado": "Nesse texto, a violência no futebol está caracterizada como um(a)",
+      "imagens": ["2022_19.png"],
+      "alternativas": [
+        { "id": "A", "texto": "problema social localizado numa região do país." },
+        { "id": "B", "texto": "desafio para as torcidas organizadas dos clubes." },
+        { "id": "C", "texto": "reflexo da precariedade da organização social no país." },
+        { "id": "D", "texto": "inadequação de espaço nos estádios para receber o público." },
+        { "id": "E", "texto": "consequência da insatisfação dos clubes com aorganização dos jogos." }
+      ],
+      "resposta_correta": "C"
+    }  ,
+     {
+      "id": "Q20",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 20,
+      "enunciado": "Com base na pesquisa e em uma visão ampliada de saúde, para a prática regular de exercícios ter influência significativa na saúde dos brasileiros, é necessário o desenvolvimento de estratégias que",
+      "imagens": ["2022_20.png"],
+      "alternativas": [
+        { "id": "A", "texto": "promovam a melhoria da aptidão física da população, dedicando-se mais tempo aos esportes." },
+        { "id": "B", "texto": "combatam o sedentarismo presente em parcela significativa da população no território nacional." },
+        { "id": "C", "texto": "facilitem a adoção da prática de exercícios, com ações relacionadas à educação e à distribuição de renda." },
+        { "id": "D", "texto": "auxiliem na construção de mais instalações esportivas e espaços adequados para a prática de atividades físicas e esportes." },
+        { "id": "E", "texto": "estimulem o incentivo fiscal para a iniciativa privada destinar verbas aos programas nacionais de promoção da saúde pelo esporte." }
+      ],
+      "resposta_correta": "C"
+    }  ,
+     {
+      "id": "Q21",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 21,
+      "enunciado": "Inscrito na estética romântica da literatura brasileira, o conto descortina aspectos da realidade nacional no século XIX ao ",
+      "imagens": ["2022_21.png"],
+      "alternativas": [
+        { "id": "A", "texto": "revelar a imposição de crenças religiosas a pessoas escravizadas." },
+        { "id": "B", "texto": "apontar a hipocrisia do discurso conservador na defesa da escravidão." },
+        { "id": "C", "texto": "sugerir práticas de violência física e moral em nome do progresso material" },
+        { "id": "D", "texto": "relacionar o declínio da produção agrícola e comercial a questões raciais" },
+        { "id": "E", "texto": "ironizar o comportamento dos proprietários de terra na exploração do trabalho" }
+      ],
+      "resposta_correta": "B"
+    }  ,
+    
+     {
+      "id": "Q22",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 22,
+      "enunciado": "Considerando-se o tema tecnologias e acessibilidade, os textos I e II aproximam-se porque apresentam projetos que ",
+      "imagens": ["2022_22_1.png", "2022_22_2.png"],
+      "alternativas": [
+        { "id": "A", "texto": "garantem a igualdade entre as pessoas." },
+        { "id": "B", "texto": "foram criados por uma pesquisadora surda." },
+        { "id": "C", "texto": "tiveram origem em um curso de pós-graduação." },
+        { "id": "D", "texto": "estão circunscritos ao espaço institucional da escola." },
+        { "id": "E", "texto": "têm como objetivo a disseminação do conhecimento." }
+      ],
+      "resposta_correta": "E"
+    }  ,
+     {
+      "id": "Q23",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 23,
+      "enunciado": "Ao descrever os olhos de Maria Santa, o narrador estabelece correlações que refletem a",
+      "imagens": ["2022_23.png"],
+      "alternativas": [
+        { "id": "A", "texto": "caracterização da personagem como mestiça." },
+        { "id": "B", "texto": "construção do enredo de conquistas da família." },
+        { "id": "C", "texto": "relação conflituosa das mulheres e seus maridos." },
+        { "id": "D", "texto": "nostalgia do desejo de viver como os antepassados." },
+        { "id": "E", "texto": "marca de antigos sofrimentos no fluxo de consciência." }
+      ],
+      "resposta_correta": "E"
+    }  ,
+     {
+      "id": "Q24",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero":24,
+      "enunciado": "Nesse artigo de opinião, ao fazer uso de uma fala rebuscada no exemplo da compra do pão, o autor evidencia a importância de(a) ",
+      "imagens": ["2022_24.png"],
+      "alternativas": [
+        { "id": "A", "texto": "se ter um notável saber jurídico." },
+        { "id": "B", "texto": "valorização da inteligência do falante." },
+        { "id": "C", "texto": "falar difícil para demonstrar inteligência." },
+        { "id": "D", "texto": "coesão e da coerência em documentos jurídicos." },
+        { "id": "E", "texto": "adequação da linguagem à situação de comunicação." }
+      ],
+      "resposta_correta": "E"
+    }  ,
+     {
+      "id": "Q25",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 25,
+      "enunciado": "O discurso da jornalista traz questionamentos sobre a relação da conquista da skatista com a",
+      "imagens": ["2022_25.png"],
+      "alternativas": [
+        { "id": "A", "texto": "conciliação do jornalismo com a prática do skate" },
+        { "id": "B", "texto": "inserção das mulheres na modalidade SKATE STREET." },
+        { "id": "C", "texto": "desconstrução da noção do skate como modalidade masculina." },
+        { "id": "D", "texto": "vanguarda de ser a atleta mais jovem a subir no pódio olímpico" },
+        { "id": "E", "texto": "conquista de medalha nos Jogos Olímpicos de Tóquio." }
+      ],
+      "resposta_correta": "C"
+    }  ,
+     {
+      "id": "Q26",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 26,
+      "enunciado": "Nesse texto, predomina a função poética da linguagem. Entretanto, a função emotiva pode ser identificada no verso:",
+      "imagens": ["2022_26.png"],
+      "alternativas": [
+        { "id": "A", "texto": "“Zanza pra acolá”." },
+        { "id": "B", "texto": "“Fim de feira, periferia afora”." },
+        { "id": "C", "texto": "“A cidade não mora mais em mim”." },
+        { "id": "D", "texto": "“Onde só vento se semeava outrora”." },
+        { "id": "E", "texto": "“Ó Manuel, Miguilim”." }
+      ],
+      "resposta_correta": "C"
+    }  ,
+     {
+      "id": "Q27",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 27,
+      "enunciado": "A articulação entre os elementos verbais e os não verbais do texto tem como propósito desencadear a",
+      "imagens": ["2022_27.png"],
+      "alternativas": [
+        { "id": "A", "texto": "identificação de distinções entre mulheres e homens." },
+        { "id": "B", "texto": "revisão de representações estereotipadas de gênero." },
+        { "id": "C", "texto": "adoção de medidas preventivas de combate ao sexismo." },
+        { "id": "D", "texto": "ratificação de comportamentos femininos e masculinos." },
+        { "id": "E", "texto": "retomada de opiniões a respeito da diversidade dos papéis sociais." }
+      ],
+      "resposta_correta": "B"
+    }  ,
+     {
+      "id": "Q28",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 28,
+      "enunciado": "O movimento de recuperação da língua patxôhã assume um caráter identitário peculiar na medida em que",
+      "imagens": ["2022_28.png"],
+      "alternativas": [
+        { "id": "A", "texto": "denuncia o processo de perseguição histórica sofrida pelos povos indígenas." },
+        { "id": "B", "texto": "conjuga o ato de resistência étnica à preservação da memória cultural." },
+        { "id": "C", "texto": "associa a preservação linguística ao campo da pesquisa acadêmica." },
+        { "id": "D", "texto": "estimula o retorno de povos indígenas a suas terras de origem." },
+        { "id": "E", "texto": "aumenta o número de línguas indígenas faladas no Brasil." }
+      ],
+      "resposta_correta": "B"
+    }  ,
+     {
+      "id": "Q29",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 29,
+      "enunciado": "No relato da visita de duas mulheres ricas a uma vidente no Morro do Castelo, a ironia — um dos traços mais representativos da narrativa machadiana — consiste no",
+      "imagens": ["2022_29.png"],
+      "alternativas": [
+        { "id": "A", "texto": "modo de vestir dos moradores do morro carioca." },
+        { "id": "B", "texto": "senso prático em relação às oportunidades de renda." },
+        { "id": "C", "texto": "mistério que cerca as clientes de práticas de vidência." },
+        { "id": "D", "texto": "misto de singeleza e astúcia dos gestos da personagem." },
+        { "id": "E", "texto": "interesse do narrador pelas figuras femininas ambíguas." }
+      ],
+      "resposta_correta": "D"
+    }  ,
+     {
+      "id": "Q30",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 30,
+      "enunciado": "No trecho do romance naturalista, a forma como o narrador julga comportamentos e emoções das personagens femininas revela influência do pensamento",
+      "imagens": ["2022_30.png"],
+      "alternativas": [
+        { "id": "A", "texto": "capitalista, marcado pela distribuição funcional do trabalho" },
+        { "id": "B", "texto": "liberal, buscando a igualdade entre pessoas escravizadas e livres." },
+        { "id": "C", "texto": "científico, considerando o ser humano como um fenômeno biológico" },
+        { "id": "D", "texto": "religioso, fundamentado na fé e na aceitação dos dogmas do cristianismo." },
+        { "id": "E", "texto": "afetivo, manifesto na determinação de acolher familiares e no respeito mútuo." }
+      ],
+      "resposta_correta": "C"
+    }  ,
+     {
+      "id": "Q31",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 31,
+      "enunciado": "Os recursos composicionais que inserem a obra no chamado “Romance de 30” da literatura brasileira manifestam-se aqui no(a) ",
+      "imagens": ["2022_31.png"],
+      "alternativas": [
+        { "id": "A", "texto": "desenho cru da realidade dramática dos retirantes." },
+        { "id": "B", "texto": "indefinição dos espaços para efeito de generalização." },
+        { "id": "C", "texto": "análise psicológica da reação dos personagens à seca." },
+        { "id": "D", "texto": "engajamento político do narrador ante as desigualdades." },
+        { "id": "E", "texto": "contemplação lírica da paisagem transformada em alegoria." }
+      ],
+      "resposta_correta": "A"
+    }  ,
+     {
+      "id": "Q32",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 32,
+      "enunciado": "O texto sobre os chamados nativos digitais traz informações com a função de",
+      "imagens": ["2022_32.png"],
+      "alternativas": [
+        { "id": "A", "texto": "propor ações específicas para cada etapa da infância." },
+        { "id": "B", "texto": "estabelecer regras que devem ser seguidas à risca." },
+        { "id": "C", "texto": "explicar os efeitos do acesso precoce à internet." },
+        { "id": "D", "texto": "determinar a incorporação de rituais à educação dos filhos." },
+        { "id": "E", "texto": "educar com base em um conjunto de estratégias formativas." }
+      ],
+      "resposta_correta": "A"
+    }  ,
+     {
+      "id": "Q33",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 33,
+      "enunciado": "O recurso linguístico que permite a Machado de Assis considerar um capítulo de Memórias póstumas de Brás Cubas como inventário é a ",
+      "imagens": ["2022_33.png"],
+      "alternativas": [
+        { "id": "A", "texto": "enumeração de objetos e fatos." },
+        { "id": "B", "texto": "predominância de linguagem objetiva." },
+        { "id": "C", "texto": "ocorrência de período longo no trecho." },
+        { "id": "D", "texto": "combinação de verbos no presente e no pretérito." },
+        { "id": "E", "texto": "presença de léxico do campo semântico de funerais." }
+      ],
+      "resposta_correta": "A"
+    }  ,
+     {
+      "id": "Q34",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 34,
+      "enunciado": "A história da prática do mountainboard representa uma das principais marcas das atividades de aventura, caracterizada pela ",
+      "imagens": ["2022_34.png"],
+      "alternativas": [
+        { "id": "A", "texto": "competitividade entre seus praticantes." },
+        { "id": "B", "texto": "atividade com padrões técnicos definidos." },
+        { "id": "C", "texto": "modalidade com regras predeterminadas." },
+        { "id": "D", "texto": "criatividade para adaptações a novos espaços." },
+        { "id": "E", "texto": "necessidade de espaços definidos para a sua realização." }
+      ],
+      "resposta_correta": "D"
+    }  ,
+     {
+      "id": "Q35",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 35,
+      "enunciado": "No texto, ao refletir sobre a atividade de cronista, a autora questiona características do gênero crônica, como",
+      "imagens": ["2022_35.png"],
+      "alternativas": [
+        { "id": "A", "texto": "relação distanciada entre os interlocutores." },
+        { "id": "B", "texto": "articulação de vários núcleos narrativos." },
+        { "id": "C", "texto": "brevidade no tratamento da temática." },
+        { "id": "D", "texto": "descrição minuciosa dos personagens." },
+        { "id": "E", "texto": "público leitor exclusivo." }
+      ],
+      "resposta_correta": "C"
+    }  ,
+     {
+      "id": "Q36",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 36,
+      "enunciado": "Essa notícia, além de cumprir sua função informativa, assume o papel de",
+      "imagens": ["2022_36.png"],
+      "alternativas": [
+        { "id": "A", "texto": "fiscalizar as ações de saúde e saneamento da cidade." },
+        { "id": "B", "texto": "defender os serviços gratuitos de atendimento à população" },
+        { "id": "C", "texto": "conscientizar a população sobre grave problema de saúde pública." },
+        { "id": "D", "texto": "propor campanhas para a ampliação de acesso aos serviços públicos." },
+        { "id": "E", "texto": "responsabilizar os agentes públicos pela demora na tomada de decisões." }
+      ],
+      "resposta_correta": "C"
+    }  ,
+     {
+      "id": "Q37",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 37,
+      "enunciado": "Associada ao ideário de uma “vida perfeita”, a positividade tóxica mencionada no texto é um fenômeno social recente, que se constitui com base em",
+      "imagens": ["2022_37.png"],
+      "alternativas": [
+        { "id": "A", "texto": "representações estereotipadas e superficiais de felicidade." },
+        { "id": "B", "texto": "ressignificações contemporâneas do conceito de alegria." },
+        { "id": "C", "texto": "estilos de vida inacessíveis para a sociedade brasileira." },
+        { "id": "D", "texto": "atitudes contraditórias de influenciadores digitais." },
+        { "id": "E", "texto": "padrões idealizados e nocivos de beleza física." }
+      ],
+      "resposta_correta": "A"
+    }  ,
+     {
+      "id": "Q38",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 38,
+      "enunciado": "Produzida no início do século XVII, a obra maneirista distingue-se pela",
+      "imagens": ["2022_38_1.png","2022_38_2.png"],
+      "alternativas": [
+        { "id": "A", "texto": "representação da nudez masculina." },
+        { "id": "B", "texto": "distorção ao representar a figura humana." },
+        { "id": "C", "texto": "evocação de um fato da cultura clássica grega." },
+        { "id": "D", "texto": "presença do tema da morte como punição da família." },
+        { "id": "E", "texto": "utilização da perspectiva para integrar os diferentes planos." }
+      ],
+      "resposta_correta": "B"
+    }  ,
+     {
+      "id": "Q39",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 39,
+      "enunciado": "De acordo com os textos I e II, compreende-se que a obra minimalista é uma",
+      "imagens": ["2022_39.png"],
+      "alternativas": [
+        { "id": "A", "texto": "representação da simplicidade pelo artista." },
+        { "id": "B", "texto": "exploração da técnica da escultura cubista." },
+        { "id": "C", "texto": "valorização do cotidiano por meio da geometria." },
+        { "id": "D", "texto": "utilização da complexidade dos elementos formais." },
+        { "id": "E", "texto": "combinação de formas sintéticas no espaço utilizado." }
+      ],
+      "resposta_correta": "E"
+    }  ,
+     {
+      "id": "Q40",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 40,
+      "enunciado": "A passagem registra um momento em que a expressividade lírica é reforçada pela ",
+      "imagens": ["2022_40.png"],
+      "alternativas": [
+        { "id": "A", "texto": "plasticidade da imagem do rebanho reunido." },
+        { "id": "B", "texto": "sugestão da firmeza do sertanejo ao arrear o cavalo." },
+        { "id": "C", "texto": "situação de pobreza encontrada nos sertões brasileiros." },
+        { "id": "D", "texto": "afetividade demonstrada ao noticiar a morte do cantador." },
+        { "id": "E", "texto": "preocupação do vaqueiro em demonstrar sua virilidade." }
+      ],
+      "resposta_correta": "D"
+    }  ,
+     {
+      "id": "Q41",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 41,
+      "enunciado": "No texto, o personagem vincula ao carnaval atitudes e reações coletivas diante das quais expressa",
+      "imagens": ["2022_41.png"],
+      "alternativas": [
+        { "id": "A", "texto": "consagração da alegria do povo." },
+        { "id": "B", "texto": "atração e asco perante atitudes libertinas." },
+        { "id": "C", "texto": "espanto com a quantidade de foliões nas ruas." },
+        { "id": "D", "texto": "intenção de confraternizar com desconhecidos." },
+        { "id": "E", "texto": "reconhecimento da festa como manifestação cultural." }
+      ],
+      "resposta_correta": "B"
+    }  ,
+     {
+      "id": "Q42",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 42,
+      "enunciado": "A partir da intimação recebida pelo filho de 9 anos, a autora faz uma reflexão em que transparece a",
+      "imagens": ["2022_42.png"],
+      "alternativas": [
+        { "id": "A", "texto": "lição de vida comunicada pelo tenente." },
+        { "id": "B", "texto": "predisposição materna para se emocionar." },
+        { "id": "C", "texto": "atividade política marcante da comunidade." },
+        { "id": "D", "texto": "resposta irônica ante o discurso da autoridade." },
+        { "id": "E", "texto": "necessidade de revelar seus anseios mais íntimos." }
+      ],
+      "resposta_correta": "D"
+    }  ,
+     {
+      "id": "Q43",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 43,
+      "enunciado": "Pela ótica do narrador, a trajetória da empregada de sua casa assume um efeito expressivo decorrente da ",
+      "imagens": ["2022_43.png"],
+      "alternativas": [
+        { "id": "A", "texto": "citação a referências literárias tradicionais." },
+        { "id": "B", "texto": "alusão à inocência das crianças da época." },
+        { "id": "C", "texto": "estratégia de questionar a bondade humana." },
+        { "id": "D", "texto": "descrição detalhada das pessoas do interior." },
+        { "id": "E", "texto": "representação anedótica de atos de violência." }
+      ],
+      "resposta_correta": "E"
+    }  ,
+     {
+      "id": "Q44",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 44,
+      "enunciado": "A instalação In absentia propõe um diálogo com o ready-made Roda de bicicleta, demonstrando que",
+      "imagens": ["2022_44_1.png", "2022_44_2.png"],
+      "alternativas": [
+        { "id": "A", "texto": "as formas de criticar obras do passado se repetem." },
+        { "id": "B", "texto": "a recorrência de temas marca a arte do final do século XX." },
+        { "id": "C", "texto": "as criações desmistificam os valores estéticos estabelecidos." },
+        { "id": "D", "texto": "o distanciamento temporal permite a transformação dos referenciais estéticos." },
+        { "id": "E", "texto": "o objeto ausente sugere a degradação da forma superando o modelo artístico." }
+      ],
+      "resposta_correta": "C"
+    }  ,
+     {
+      "id": "Q45",
+      "area_id": "LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS",
+      "numero": 45,
+      "enunciado": "Chico Science foi fundamental para a renovação da música pernambucana, fato que se deu pela",
+      "imagens": ["2022_45.png"],
+      "alternativas": [
+        { "id": "A", "texto": "utilização de aparelhos musicais eletrônicos em lugar dos instrumentos tradicionais." },
+        { "id": "B", "texto": "ocupação de espaços da natureza local para a produção de eventos musicais memoráveis." },
+        { "id": "C", "texto": "substituição de antigas práticas musicais, como o frevo, por melodias e harmonias inovadoras." },
+        { "id": "D", "texto": "recuperação de composições tradicionais folclóricas e sua apresentação em grandes festivais." },
+        { "id": "E", "texto": "integração de referenciais culturais de diferentes origens, criando uma nova combinação estética." }
+      ],
+      "resposta_correta": "E"
+    }  
+     
   ]
 }
